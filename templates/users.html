@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}Contacts{% endblock %}
+{% block title %}Users{% endblock %}
 
 {% block content %}
 
-    <h1>Contact List</h1>
+    <h1>User List</h1>
     
-    <form action="/contacts" method="get">
+    <form action="/users" method="get">
         <label for="limit">Limit:</label>
         <input type="number" id="limit" name="limit" value="10" min="1" max="20">
         <br>
         <label for="offset">Offset:</label>
         <input type="number" id="offset" name="offset" value="0" min="0">
         <br>
-        <button type="submit">Get Contacts</button>
+        <button type="submit">Get Users</button>
     </form>
 
-    <!-- Display Contacts -->
-    {% if contacts %}
+    <!-- Display Users -->
+    {% if users %}
         <table>
             <thead>
                 <tr>
@@ -32,16 +32,16 @@
                 </tr>
             </thead>
             <tbody>
-                {% for contact in contacts %}
+                {% for user in users %}
                     <tr>
-                        <td>{{ contact.id }}</td>
-                        <td>{{ contact.name }}</td>
-                        <td>{{ contact.email }}</td>
-                        <td>{{ contact.phone }}</td>
-                        <td>{{ contact.birthday }}</td>
-                        <td>{{ contact.created_at }}</td>
-                        <td><img src="{{ contact.avatar }}" alt="Avatar" width="50" height="50"></td>
-                        <td>{{ contact.role }}</td>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.phone }}</td>
+                        <td>{{ user.birthday }}</td>
+                        <td>{{ user.created_at }}</td>
+                        <td><img src="{{ user.avatar }}" alt="Avatar" width="50" height="50"></td>
+                        <td>{{ user.role }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
