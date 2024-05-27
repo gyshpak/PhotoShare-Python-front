@@ -61,6 +61,7 @@ textarea {
     border-radius: 25px;
     padding: 15px;
     font-family: Arial, sans-serif;
+    scrollbar-width: none;
 }
 
 input {
