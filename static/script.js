@@ -1,57 +1,69 @@
-// document.addEventListener('mousemove', (event) => {
-//     createStar(event.clientX, event.clientY);
-//   });
-  
-//   function createStar(x, y) {
-//     const star = document.createElement('div');
-//     star.classList.add('star');
-//     star.style.left = `${x}px`;
-//     star.style.top = `${y}px`;
-//     document.body.appendChild(star);
-  
-//     // Remove the star after the animation is complete
-//     star.addEventListener('animationend', () => {
-//       star.remove();
-//     });
-//   }
-
-
 document.addEventListener('mousemove', (event) => {
     const { clientX: x, clientY: y } = event;
     createStar(x, y);
     moveCursorGlow(x, y);
-  });
-  
-  function createStar(x, y) {
-    const star = document.createElement('div');
-    star.classList.add('star');
-    star.style.left = `${x}px`;
-    star.style.top = `${y}px`;
-    document.body.appendChild(star);
-  
-    // Remove the star after the animation is complete
-    star.addEventListener('animationend', () => {
-      star.remove();
-    });
-  }
-  
-  function moveCursorGlow(x, y) {
+});
+
+// function createStar(x, y) {
+//     const star = document.createElement('div');
+//     star.classList.add('star');
+//     const offsetX = window.pageXOffset;
+//     const offsetY = window.pageYOffset;
+    
+//     star.style.left = `${x + offsetX}px`;
+//     star.style.top = `${y + offsetY}px`;
+//     document.body.appendChild(star);
+//     star.addEventListener('animationend', () => {
+//         star.remove();
+//     });
+// }
+
+function createStar(x, y) {
+    const numStars = 1;
+
+    for (let i = 0; i < numStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        const offsetX = window.pageXOffset;
+        const offsetY = window.pageYOffset;
+        
+        const randomX = Math.random() * 1 - 1;
+        const randomY = Math.random() * 1 - 1;
+
+        star.style.left = `${x + offsetX + randomX}px`;
+        star.style.top = `${y + offsetY + randomY}px`;
+        document.body.appendChild(star);
+
+        star.addEventListener('animationend', () => {
+            star.remove();
+        });
+    }
+}
+
+function moveCursorGlow(x, y) {
     let cursorGlow = document.getElementById('cursor-glow');
     if (!cursorGlow) {
-      cursorGlow = document.createElement('div');
-      cursorGlow.id = 'cursor-glow';
-      document.body.appendChild(cursorGlow);
+        cursorGlow = document.createElement('div');
+        cursorGlow.id = 'cursor-glow';
+        document.body.appendChild(cursorGlow);
     }
-    cursorGlow.style.left = `${x}px`;
-    cursorGlow.style.top = `${y}px`;
-  }
+    
+    const offsetX = window.pageXOffset;
+    const offsetY = window.pageYOffset;
+    
+    cursorGlow.style.left = `${x + offsetX}px`;
+    cursorGlow.style.top = `${y + offsetY}px`;
+}
+
+
+
+
 
 
 
 
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Check if the user is logged in
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
     const loginButton = document.getElementById('loginButton');
@@ -69,13 +81,11 @@ document.addEventListener('mousemove', (event) => {
     }
 });
 
-// Mock function to simulate login (replace this with your actual login logic)
 function login() {
     localStorage.setItem('isLoggedIn', 'true');
     window.location.reload();
 }
 
-// Mock function to simulate logout
 function logout() {
     localStorage.setItem('isLoggedIn', 'false');
     window.location.reload();
@@ -87,155 +97,9 @@ function logout() {
 
 
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     const buttons = document.querySelectorAll('a');
-
-//     buttons.forEach(button => {
-//         button.addEventListener('click', (e) => {
-//             // Redirect to the href immediately
-//             window.location.href = button.href;
-
-//             e.preventDefault(); // Prevent default link behavior for demo purposes
-//             const numStars = 60;
-//             const rect = button.getBoundingClientRect();
-//             const buttonCenterX = rect.left + rect.width / 2;
-//             const buttonCenterY = rect.top + rect.height / 2;
-
-//             for (let i = 0; i < numStars; i++) {
-//                 const star = document.createElement('div');
-//                 star.classList.add('star');
-//                 document.body.appendChild(star);
-
-//                 const angle = Math.random() * 2 * Math.PI;
-//                 const radius = Math.random() * 100;
-//                 const translateX = radius * Math.cos(angle);
-//                 const translateY = radius * Math.sin(angle);
-
-//                 star.style.setProperty('--translate-x', `${translateX}px`);
-//                 star.style.setProperty('--translate-y', `${translateY}px`);
-//                 star.style.left = `${buttonCenterX}px`;
-//                 star.style.top = `${buttonCenterY}px`;
-
-//                 star.addEventListener('animationend', () => {
-//                     star.remove();
-//                 });
-//             }
-//         });
-//     });
-// });
 
 
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     const buttons = document.querySelectorAll('a');
-
-//     buttons.forEach(button => {
-//         button.addEventListener('click', (e) => {
-//             const numStars = 60;
-//             const rect = button.getBoundingClientRect();
-//             const buttonCenterX = rect.left + rect.width / 2;
-//             const buttonCenterY = rect.top + rect.height / 2;
-
-//             for (let i = 0; i < numStars; i++) {
-//                 const star = document.createElement('div');
-//                 star.classList.add('star');
-//                 document.body.appendChild(star);
-
-//                 const angle = Math.random() * 2 * Math.PI;
-//                 const radius = Math.random() * 100;
-//                 const translateX = radius * Math.cos(angle);
-//                 const translateY = radius * Math.sin(angle);
-
-//                 star.style.setProperty('--translate-x', `${translateX}px`);
-//                 star.style.setProperty('--translate-y', `${translateY}px`);
-//                 star.style.left = `${buttonCenterX}px`;
-//                 star.style.top = `${buttonCenterY}px`;
-
-//                 star.addEventListener('animationend', () => {
-//                     star.remove();
-//                 });
-//             }
-//         });
-//     });
-// });
-
-
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const links = document.querySelectorAll('a');
-
-//     links.forEach(link => {
-//         link.addEventListener('mousedown', (e) => {
-//             const numStars = 60;
-//             const rect = link.getBoundingClientRect();
-//             const linkCenterX = rect.left + rect.width / 2;
-//             const linkCenterY = rect.top + rect.height / 2;
-
-//             for (let i = 0; i < numStars; i++) {
-//                 const star = document.createElement('div');
-//                 star.classList.add('star');
-//                 document.body.appendChild(star);
-
-//                 const angle = Math.random() * 2 * Math.PI;
-//                 const radius = Math.random() * 100;
-//                 const translateX = radius * Math.cos(angle);
-//                 const translateY = radius * Math.sin(angle);
-
-//                 star.style.setProperty('--translate-x', `${translateX}px`);
-//                 star.style.setProperty('--translate-y', `${translateY}px`);
-//                 star.style.left = `${linkCenterX}px`;
-//                 star.style.top = `${linkCenterY}px`;
-
-//                 star.addEventListener('animationend', () => {
-//                     star.remove();
-//                 });
-//             }
-//         });
-//     });
-// });
-
-
-
-
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const links = document.querySelectorAll('a');
-
-//     links.forEach(link => {
-//         link.addEventListener('click', (e) => {
-//             e.preventDefault(); // Відмінити стандартну поведінку посилання
-
-//             setTimeout(() => {
-//                 window.location.href = link.href; // Редірект після паузи
-//             }, 400);
-            
-//             const numStars = 60;
-//             const rect = link.getBoundingClientRect();
-//             const linkCenterX = rect.left + rect.width / 2;
-//             const linkCenterY = rect.top + rect.height / 2;
-
-//             for (let i = 0; i < numStars; i++) {
-//                 const star = document.createElement('div');
-//                 star.classList.add('star');
-//                 document.body.appendChild(star);
-
-//                 const angle = Math.random() * 2 * Math.PI;
-//                 const radius = Math.random() * 100;
-//                 const translateX = radius * Math.cos(angle);
-//                 const translateY = radius * Math.sin(angle);
-
-//                 star.style.setProperty('--translate-x', `${translateX}px`);
-//                 star.style.setProperty('--translate-y', `${translateY}px`);
-//                 star.style.left = `${linkCenterX}px`;
-//                 star.style.top = `${linkCenterY}px`;
-
-//                 star.addEventListener('animationend', () => {
-//                     star.remove();
-//                 });
-//             }
-//         });
-//     });
-// });
 
 
 
@@ -245,44 +109,23 @@ function logout() {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.magic-button');
+    const cards = document.querySelectorAll('.photo-card');
 
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            buttons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { left, top, width, height } = card.getBoundingClientRect();
+
+            // Знаходимо положення курсора відносно середини карточки
+            const xPos = (clientX - (left + width / 2)) / (width / 2);
+            const yPos = (clientY - (top + height / 2)) / (height / 2);
+
+            // Обертаємо карточку з урахуванням положення курсора
+            card.style.transform = `rotateY(${xPos * 10}deg) rotateX(${-yPos * 10}deg)`;
         });
-    });
-});
 
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('a');
-
-    buttons.forEach(button => {
-            if (button.classList.contains('active')) {
-                const numStars = 60;
-                const rect = button.getBoundingClientRect();
-                const buttonCenterX = rect.left + rect.width / 2;
-                const buttonCenterY = rect.top + rect.height / 2;
-
-                for (let i = 0; i < numStars; i++) {
-                    const star = document.createElement('div');
-                    star.classList.add('star');
-                    document.body.appendChild(star);
-
-                    const angle = Math.random() * 2 * Math.PI;
-                    const radius = Math.random() * 100;
-                    const translateX = radius * Math.cos(angle);
-                    const translateY = radius * Math.sin(angle);
-
-                    star.style.setProperty('--translate-x', `${translateX}px`);
-                    star.style.setProperty('--translate-y', `${translateY}px`);
-                    star.style.left = `${buttonCenterX}px`;
-                    star.style.top = `${buttonCenterY}px`;
-                }
-            }
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        });
     });
 });
