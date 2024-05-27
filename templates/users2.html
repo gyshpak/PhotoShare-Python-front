@@ -29,7 +29,6 @@
                     <!-- <th>Created_at</th> -->
                     <th>Avatar</th>
                     <th>Role</th>
-                    <th>Actions</th>  <!-- Додано новий стовпчик для дій -->
                 </tr>
             </thead>
             <tbody>
@@ -43,26 +42,6 @@
                         <!-- <td>{{ user.created_at }}</td> -->
                         <td><img src="{{ user.avatar }}" alt="Avatar" width="50" height="50"></td>
                         <td>{{ user.role }}</td>
-                        <td>
-                            <form action="/role" method="post">
-                                <input type="hidden" name="user_id" value="{{ user.id }}">
-                                <select name="role">
-                                    <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
-                                    <option value="moderator" {% if user.role == 'moderator' %}selected{% endif %}>Moderator</option>
-                                    <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
-                                </select>
-                                <button type="submit">Save</button>
-                            </form>
-                            <!-- Форма для блокування користувача -->
-                            <form action="/ban" method="post">
-                                <input type="hidden" name="user_id" value="{{ user.id }}">
-                                <select name="isbanned">
-                                    <option value="bunned" selected>bunned</option>
-                                    <option value="unbanned" selected>unbanned</option>
-                                </select>
-                                <button type="submit">Block</button>
-                            </form>
-                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

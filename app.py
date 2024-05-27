@@ -116,6 +116,44 @@ async def login_user(
                 )
 
 
+@app.get("/logout", response_class=HTMLResponse)
+async def login_user(request: Request):
+    access_token = request.session.get("access_token")
+    if not access_token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Access token missing or invalid",
+        )
+    async with httpx.AsyncClient() as client:
+        try:
+            headers = {"Authorization": f"Bearer {access_token}"}
+
+            response_users = await client.post(
+                f"{base_url}/auth/logout",
+                headers=headers,
+                follow_redirects=True,
+            )
+            request.session["access_token"] = None
+            response_users.raise_for_status()
+            users = response_users.json()
+
+            return templates.TemplateResponse(
+                "logout.html", {"request": request}
+            )
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 401:
+                return templates.TemplateResponse(
+                    "Unauthorized.html", {"request": request}
+                )
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail=f"Failed to fetch users: {e}",
+                )
+
+
+
+
 @app.get("/users", response_class=HTMLResponse)
 async def search_users(request: Request, limit: int = 10, offset: int = 0):
     access_token = request.session.get("access_token")
@@ -247,6 +285,84 @@ async def search_users(
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     detail=f"Failed to fetch users: {e}",
                 )
+
+
+
+@app.get("/update_avatar", response_class=HTMLResponse)
+async def upload_photo_form(request: Request):
+    return templates.TemplateResponse("update_avatar.html", {"request": request})
+
+
+
+@app.post("/update_avatar", response_class=HTMLResponse)
+async def upload_photo(
+    request: Request,
+    photo: UploadFile = File(...),
+):
+    access_token = request.session.get("access_token")
+    if not access_token:
+        raise HTTPException(status_code=401, detail="Access token missing or invalid")
+
+    async with httpx.AsyncClient() as client:
+        files = {"file": (photo.filename, photo.file, photo.content_type)}
+        headers = {"Authorization": f"Bearer {access_token}"}
+        response = requests.put(
+            f"{base_url}/users/avatar",
+            headers=headers,
+            files=files,
+        )
+        response.raise_for_status()
+    return templates.TemplateResponse("upload_success.html", {"request": request})
+
+
+@app.post("/role", response_class=HTMLResponse)
+async def change_role(request: Request, user_id: str = Form(...), role: str = Form(...)):
+    access_token = request.session.get("access_token")
+    if not access_token:
+        raise HTTPException(status_code=401, detail="Access token missing or invalid")
+    
+    async with httpx.AsyncClient() as client:
+        form_data = {
+            "role": role,
+        }
+
+        # headers = {"Authorization": f"Bearer {access_token}", "Content-Type": "application/json"}
+        headers = {"Authorization": f"Bearer {access_token}"}
+        response = await client.put(
+            f"{base_url}/users/role/{user_id}",
+            headers=headers,
+            json=role
+        )
+        response.raise_for_status()
+    return templates.TemplateResponse("users.html", {"request": request})
+
+
+
+
+@app.post("/ban", response_class=HTMLResponse)
+async def change_role(request: Request, user_id: int = Form(...), isbanned: str = Form(...)):
+    access_token = request.session.get("access_token")
+    if not access_token:
+        raise HTTPException(status_code=401, detail="Access token missing or invalid")
+    
+    async with httpx.AsyncClient() as client:
+        form_data = {
+            "isbanned": isbanned,
+        }
+
+        # headers = {"Authorization": f"Bearer {access_token}", "Content-Type": "application/json"}
+        headers = {"Authorization": f"Bearer {access_token}"}
+        response = await client.put(
+            f"{base_url}/users/ban/{user_id}",
+            headers=headers,
+            json=isbanned
+        )
+        response.raise_for_status()
+    return templates.TemplateResponse("users.html", {"request": request})
+
+
+
+
 
 
 @app.get("/upload_photo", response_class=HTMLResponse)
