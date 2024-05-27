@@ -6,7 +6,6 @@
 
 <h1>Photos</h1>
 
-<<<<<<< HEAD
 <!-- Display All Photos -->
 <div style="display: flex; flex-wrap: wrap; gap: 20px;">
     {% for photo in photos %}
@@ -31,19 +30,5 @@
         </div>
     {% endfor %}
 </div>
-=======
-    <!-- Display All Photos -->
-    <div class="photo-container">
-        {% for photo in photos %}
-            <div class="photo-card">
-                <img src="{{ photo.url }}" alt="Photo" style="width: 100%; height: auto;">
-                <p><strong>Description:</strong> {{ photo.description }}</p>
-                <p><strong>Tags:</strong> {{ photo.tags }}</p>
-                <p><strong>Created At:</strong> {{ photo.created_at }}</p>
-                <!-- Add more details as needed -->
-            </div>
-        {% endfor %}
-    </div>
->>>>>>> fba3820bb1e51b7d02f418d1a3c90f225262580e
 
 {% endblock %}
