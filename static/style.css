@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #000;
-    cursor: none;
+    /* cursor: none; */
     color: #ffffff;
 
     font-family: Arial, sans-serif;
@@ -234,6 +234,12 @@ button:hover {
 .photo-card {
     box-shadow: 0 0 10px rgba(98, 0, 234, 0.7), 0 0 20px rgba(98, 0, 234, 0.5), 0 0 30px rgba(98, 0, 234, 0.3);
     max-width: 600px;
+    transition: transform 0.3s ease;
+    perspective: 1000px;
+}
+
+.photo-card:hover {
+    transform: rotateX(10deg) rotateY(10deg);
 }
 
 .photo-image {
