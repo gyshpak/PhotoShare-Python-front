@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}My Photos{% endblock %}
+
+{% block content %}
+
+    <h1>Photos</h1>
+
+    <!-- Display All Photos -->
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+        {% for photo in photos %}
+            <div style="max-width: 600px;">
+                <img src="{{ photo.url }}" alt="Photo" style="width: 100%; height: auto;">
+                <p><strong>Description:</strong> {{ photo.description }}</p>
+                <p><strong>Tags:</strong> {{ photo.tags }}</p>
+                <p><strong>Created At:</strong> {{ photo.created_at }}</p>
+                <!-- Add more details as needed -->
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -7,11 +7,16 @@
     <h1>User Details</h1>
 
     <!-- Display Single User -->
-    {% if contact %}
+    {% if user %}
         <div style="display: flex; align-items: center;">
             <!-- Avatar -->
+<<<<<<< HEAD:templates/user.html
+            <div style="margin-right: 20px;">
+                <img src="{{ user.avatar }}" alt="Avatar" width="200" height="200">
+=======
             <div style="margin-right: 60px;">
                 <img src="{{ contact.avatar }}" alt="Avatar" class="profile-photo">
+>>>>>>> fba3820bb1e51b7d02f418d1a3c90f225262580e:templates/contact.html
             </div>
 
             <!-- User Details -->
@@ -20,32 +25,36 @@
                     <tbody>
                         <tr>
                             <th>ID:</th>
-                            <td>{{ contact.id }}</td>
+                            <td>{{ user.id }}</td>
                         </tr>
                         <tr>
                             <th>Username:</th>
-                            <td>{{ contact.name }}</td>
+                            <td>{{ user.name }}</td>
                         </tr>
                         <tr>
                             <th>Email:</th>
-                            <td>{{ contact.email }}</td>
+                            <td>{{ user.email }}</td>
                         </tr>
                         <tr>
                             <th>Phone:</th>
+<<<<<<< HEAD:templates/user.html
+                            <td>{{ user.phone }}</td>
+=======
                             <br />
                             <td>{{ contact.phone }}</td>
+>>>>>>> fba3820bb1e51b7d02f418d1a3c90f225262580e:templates/contact.html
                         </tr>
                         <tr>
                             <th>Birthday:</th>
-                            <td>{{ contact.birthday }}</td>
+                            <td>{{ user.birthday }}</td>
                         </tr>
                         <tr>
                             <th>Created At:</th>
-                            <td>{{ contact.created_at }}</td>
+                            <td>{{ user.created_at }}</td>
                         </tr>
                         <tr>
                             <th>Role:</th>
-                            <td>{{ contact.role }}</td>
+                            <td>{{ user.role }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -54,7 +63,7 @@
 
         <!-- Buttons -->
         <div style="margin-top: 20px;">
-            <a href="/edit_contact"><button>Edit Contact</button></a>
+            <a href="/edit_user"><button>Edit User</button></a>
             <!-- <a href="/my_photos"><button>My Photos</button></a> -->
             <a href="/upload_photo"><button>Upload Photo</button></a>
         </div>

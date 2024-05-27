@@ -112,12 +112,12 @@ async def login_user(
             else:
                 raise HTTPException(
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch contacts: {e}",
+                    detail=f"Failed to fetch users: {e}",
                 )
 
 
-@app.get("/contacts", response_class=HTMLResponse)
-async def search_contacts(request: Request, limit: int = 10, offset: int = 0):
+@app.get("/users", response_class=HTMLResponse)
+async def search_users(request: Request, limit: int = 10, offset: int = 0):
     access_token = request.session.get("access_token")
     if not access_token:
         raise HTTPException(
@@ -129,17 +129,17 @@ async def search_contacts(request: Request, limit: int = 10, offset: int = 0):
         try:
             headers = {"Authorization": f"Bearer {access_token}"}
 
-            response_contacts = await client.get(
+            response_users = await client.get(
                 f"{base_url}/users/all",
                 headers=headers,
                 params={"limit": limit, "offset": offset},
                 follow_redirects=True,
             )
-            response_contacts.raise_for_status()
-            contacts = response_contacts.json()
+            response_users.raise_for_status()
+            users = response_users.json()
 
             return templates.TemplateResponse(
-                "contacts.html", {"request": request, "contacts": contacts}
+                "users.html", {"request": request, "users": users}
             )
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 401:
@@ -149,12 +149,12 @@ async def search_contacts(request: Request, limit: int = 10, offset: int = 0):
             else:
                 raise HTTPException(
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch contacts: {e}",
+                    detail=f"Failed to fetch users: {e}",
                 )
 
 
-@app.get("/contact", response_class=HTMLResponse)
-async def search_contacts(request: Request):
+@app.get("/user", response_class=HTMLResponse)
+async def search_users(request: Request):
     access_token = request.session.get("access_token")
     if not access_token:
         raise HTTPException(
@@ -166,17 +166,17 @@ async def search_contacts(request: Request):
         try:
             headers = {"Authorization": f"Bearer {access_token}"}
 
-            response_contacts = await client.get(
+            response_users = await client.get(
                 f"{base_url}/users/me",
                 headers=headers,
                 # params={"limit": limit, "offset": offset},
                 follow_redirects=True,
             )
-            response_contacts.raise_for_status()
-            contact = response_contacts.json()
+            response_users.raise_for_status()
+            user = response_users.json()
 
             return templates.TemplateResponse(
-                "contact.html", {"request": request, "contact": contact}
+                "user.html", {"request": request, "user": user}
             )
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 401:
@@ -186,17 +186,17 @@ async def search_contacts(request: Request):
             else:
                 raise HTTPException(
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch contacts: {e}",
+                    detail=f"Failed to fetch users: {e}",
                 )
 
 
-@app.get("/edit_contact", response_class=HTMLResponse)
+@app.get("/edit_user", response_class=HTMLResponse)
 async def login_form(request: Request):
-    return templates.TemplateResponse("/edit_contact.html", {"request": request})
+    return templates.TemplateResponse("/edit_user.html", {"request": request})
 
 
-@app.post("/edit_contact", response_class=HTMLResponse)
-async def search_contacts(
+@app.post("/edit_user", response_class=HTMLResponse)
+async def search_users(
     request: Request,
     username: str = Form(...),
     phone: str = Form(...),
@@ -228,14 +228,14 @@ async def search_contacts(
         try:
             headers = {"Authorization": f"Bearer {access_token}"}
 
-            response_contact = await client.put(
+            response_user = await client.put(
                 f"{base_url}/users", headers=headers, json=data, follow_redirects=True
             )
-            response_contact.raise_for_status()
-            contact = response_contact.json()
+            response_user.raise_for_status()
+            user = response_user.json()
 
             return templates.TemplateResponse(
-                "contact.html", {"request": request, "contact": contact}
+                "user.html", {"request": request, "user": user}
             )
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 401:
@@ -245,7 +245,7 @@ async def search_contacts(
             else:
                 raise HTTPException(
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch contacts: {e}",
+                    detail=f"Failed to fetch users: {e}",
                 )
 
 
@@ -285,14 +285,13 @@ async def upload_photo(
             data=form_data
         )
 
-        
         response.raise_for_status()
 
     return templates.TemplateResponse("upload_success.html", {"request": request})
 
 
 @app.get("/photos", response_class=HTMLResponse)
-async def search_contacts(request: Request):
+async def get_photos(request: Request):
     access_token = request.session.get("access_token")
     if not access_token:
         raise HTTPException(
@@ -304,14 +303,13 @@ async def search_contacts(request: Request):
         try:
             headers = {"Authorization": f"Bearer {access_token}"}
 
-            response_contacts = await client.get(
+            response = await client.get(
                 f"{base_url}/photos",
                 headers=headers,
-                # params={"limit": limit, "offset": offset},
                 follow_redirects=True,
             )
-            response_contacts.raise_for_status()
-            photos = response_contacts.json()
+            response.raise_for_status()
+            photos = response.json()
 
             return templates.TemplateResponse(
                 "photos.html", {"request": request, "photos": photos}
@@ -324,8 +322,26 @@ async def search_contacts(request: Request):
             else:
                 raise HTTPException(
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch contacts: {e}",
+                    detail=f"Failed to fetch photos: {e}",
                 )
+
+
+@app.post("/add_comment", response_class=HTMLResponse)
+async def add_comment(
+    request: Request, photo_id: str = Form(...), comment: str = Form(...)
+):
+    access_token = request.session.get("access_token")
+    if not access_token:
+        raise HTTPException(status_code=401, detail="Access token missing or invalid")
+
+    async with httpx.AsyncClient() as client:
+        headers = {"Authorization": f"Bearer {access_token}"}
+        response = await client.post(
+            f"{base_url}/comments/{photo_id}", headers=headers, json=comment
+        )
+        response.raise_for_status()
+
+    return RedirectResponse(url="/photos", status_code=303)
 
 
 if __name__ == "__main__":
