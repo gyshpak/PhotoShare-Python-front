@@ -27,8 +27,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # Підключення папки з шаблонами Jinja2
 templates = Jinja2Templates(directory="templates")
 
-# base_url = "https://photoshare-python-back.onrender.com/api"
-base_url = "http://localhost:8000/api"
+base_url = "https://photoshare-python-back.onrender.com/api"
+# base_url = "http://localhost:8000/api"
 
 app.add_middleware(SessionMiddleware, secret_key="your_secret_key")
 
