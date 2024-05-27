@@ -9,7 +9,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-  }
+    user-select: none;
+}
 
 h1 {
     font-size: 3rem;
@@ -32,17 +33,12 @@ p {
 }
 
 input {
-    padding: 15px;
+    padding: 10px 20px;
     width: 400px;
     border-radius: 50px;
     border: none;
     margin-top: 15px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    font-size: 18px;
 }
 
 button {
@@ -76,6 +72,41 @@ button::before {
     transform: translate(-50%, -50%);
 }
 
+.form-login, .form-signup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-login input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+}
+
+.password-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none;
+}
+
+.form-login input:focus {
+    border-color: #6200EA;
+    outline: none;
+    box-shadow: 0 0 5px rgba(98, 0, 234, 0.5);
+}
+
 button:active::before {
     width: 200%;
     height: 200%;
@@ -88,22 +119,19 @@ button:hover {
 
 
 ::-webkit-scrollbar {
-    background-color: #f1f1f1;
+    background-color: #000;
     border-radius: 50px;
-  }
+}
   
-  ::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 50px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb {
     background-color: #555;
     border-radius: 50px;
-  }
-
-
-
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+    border-radius: 50px;
+}
 
 .container {
     display: flex;
@@ -113,7 +141,7 @@ button:hover {
     width: 100%;
 }
   
-  .star {
+.star {
     position: absolute;
     width: 20px;
     height: 20px;
@@ -122,14 +150,14 @@ button:hover {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     pointer-events: none;
     animation: fadeOut 0.5s forwards;
-  }
-  
-  @keyframes fadeOut {
+}
+
+@keyframes fadeOut {
     to {
-      transform: scale(2);
-      opacity: 0;
+        transform: scale(2);
+        opacity: 0;
     }
-  }
+}
 
 /* .star {
     position: absolute;
@@ -153,7 +181,7 @@ button:hover {
     }
 } */
 
-  #cursor-glow {
+#cursor-glow {
     position: absolute;
     width: 40px;
     height: 40px;
@@ -162,7 +190,7 @@ button:hover {
     pointer-events: none;
     transform: translate(-50%, -50%);
     box-shadow: 0 0 30px 20px rgba(255, 255, 255, 0.2);
-  }
+}
 
 .buttons {
     margin: 20px 0;
@@ -207,9 +235,6 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-<<<<<<< HEAD
-} */
-=======
 }
 
 .photo-container {
@@ -237,4 +262,8 @@ h1 {
     width: 100%; 
     height: auto;
 }
->>>>>>> fba3820bb1e51b7d02f418d1a3c90f225262580e
+
+.form-control:focus {
+    box-shadow: 0 0 20px rgba(98, 0, 234, 0.7), 0 0 30px rgba(98, 0, 234, 0.5), 0 0 40px rgba(98, 0, 234, 0.3);
+    outline: none;
+}
