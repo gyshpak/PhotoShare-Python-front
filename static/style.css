@@ -2,9 +2,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: #000;
-    /* cursor: none; */
+    cursor: none;
     color: #ffffff;
-
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -46,6 +45,47 @@ form {
     align-items: flex-start;
 }
 
+button {
+    background-color: #6200ea;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.4);
+    transition: width 0.3s ease, height 0.3s ease;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+button:active::before {
+    width: 200%;
+    height: 200%;
+}
+
+button:hover {
+    background-color: #3700b3;
+    box-shadow: 0 0 10px rgba(98, 0, 234, 0.7), 0 0 20px rgba(98, 0, 234, 0.5), 0 0 30px rgba(98, 0, 234, 0.3);
+}
+
 .container {
     display: flex;
     justify-content: center;
@@ -56,8 +96,8 @@ form {
   
   .star {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 20px;
+    height: 20px;
     background-color: #fff;
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
@@ -71,6 +111,28 @@ form {
       opacity: 0;
     }
   }
+
+/* .star {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    animation: star-animation 1s forwards;
+}
+
+@keyframes star-animation {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--translate-x), var(--translate-y)) scale(1.5);
+    }
+} */
 
   #cursor-glow {
     position: absolute;
@@ -108,10 +170,6 @@ h1 {
     }
 }
 
-.buttons {
-    margin: 20px 0;
-}
-
 
 .hidden {
     display: none;
@@ -119,100 +177,11 @@ h1 {
 
 .profile-photo {
     border-radius: 50%;
-    /* width: 60%; */
     padding: 5px;
     border: 3px solid #6200ea;
     box-shadow: 0 0 5px #6200ea, 0 0 10px #6200ea, 0 0 15px #6200ea, 0 0 20px #3700b3, 0 0 30px #3700b3;
     width: 200px;
     height: 200px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-button {
-    background-color: #6200ea;
-    border: none;
-    color: white;
-    padding: 15px 30px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 10px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-button::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.4);
-    transition: width 0.3s ease, height 0.3s ease;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-}
-
-button:active::before {
-    width: 200%;
-    height: 200%;
-}
-
-button:hover {
-    background-color: #3700b3;
-    box-shadow: 0 0 10px rgba(98, 0, 234, 0.7), 0 0 20px rgba(98, 0, 234, 0.5), 0 0 30px rgba(98, 0, 234, 0.3);
-}
-
-.star {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0;
-    pointer-events: none;
-    animation: star-animation 1s forwards;
-}
-
-@keyframes star-animation {
-    0% {
-        opacity: 1;
-        transform: translate(0, 0) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(var(--translate-x), var(--translate-y)) scale(1.5);
-    }
 }
 
 .form-login {
@@ -234,13 +203,13 @@ button:hover {
 .photo-card {
     box-shadow: 0 0 10px rgba(98, 0, 234, 0.7), 0 0 20px rgba(98, 0, 234, 0.5), 0 0 30px rgba(98, 0, 234, 0.3);
     max-width: 600px;
-    transition: transform 0.3s ease;
+    transition: transform 0.1s ease;
     perspective: 1000px;
 }
 
-.photo-card:hover {
-    transform: rotateX(10deg) rotateY(10deg);
-}
+/* .photo-card:hover {
+    transform: rotateX(0deg) rotateY(0deg);
+} */
 
 .photo-image {
     width: 100%; 
