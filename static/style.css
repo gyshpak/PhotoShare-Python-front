@@ -1,4 +1,4 @@
-/* body {
+body {
     margin: 0;
     padding: 0;
     background-color: #000;
@@ -159,7 +159,7 @@ button:hover {
     }
 }
 
-/* .star {
+.star {
     position: absolute;
     width: 6px;
     height: 6px;
@@ -179,7 +179,7 @@ button:hover {
         opacity: 0;
         transform: translate(var(--translate-x), var(--translate-y)) scale(1.5);
     }
-} */
+}
 
 #cursor-glow {
     position: absolute;
@@ -254,9 +254,9 @@ h1 {
     perspective: 1000px;
 }
 
-/* .photo-card:hover {
+.photo-card:hover {
     transform: rotateX(0deg) rotateY(0deg);
-} */
+}
 
 .photo-image {
     width: 100%; 
