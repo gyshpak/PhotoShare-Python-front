@@ -1,12 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact List</title>
-</head>
-<body> -->
-
 {% extends "base.html" %}
 
 {% block title %}Contacts{% endblock %}
@@ -17,7 +8,7 @@
     
     <form action="/contacts" method="get">
         <label for="limit">Limit:</label>
-        <input type="number" id="limit" name="limit" value="10" min="1" max="100">
+        <input type="number" id="limit" name="limit" value="10" min="1" max="20">
         <br>
         <label for="offset">Offset:</label>
         <input type="number" id="offset" name="offset" value="0" min="0">
@@ -49,7 +40,7 @@
                         <td>{{ contact.phone }}</td>
                         <td>{{ contact.birthday }}</td>
                         <td>{{ contact.created_at }}</td>
-                        <td>{{ contact.avatar }}</td>
+                        <td><img src="{{ contact.avatar }}" alt="Avatar" width="50" height="50"></td>
                         <td>{{ contact.role }}</td>
                     </tr>
                 {% endfor %}
@@ -57,6 +48,4 @@
         </table>
     {% endif %}
 
-<!-- </body>
-</html> -->
 {% endblock %}

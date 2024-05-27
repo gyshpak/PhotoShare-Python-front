@@ -9,6 +9,9 @@ readme = "README.md"
 python = "^3.12"
 fastapi = "^0.111.0"
 uvicorn = "^0.29.0"
+starlette = "^0.37.2"
+itsdangerous = "^2.2.0"
+requests = "^2.32.2"
 
 
 [build-system]

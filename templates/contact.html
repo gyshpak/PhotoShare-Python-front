@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}User Details{% endblock %}
+
+{% block content %}
+
+    <h1>User Details</h1>
+
+    <!-- Display Single User -->
+    {% if contact %}
+        <div style="display: flex; align-items: center;">
+            <!-- Avatar -->
+            <div style="margin-right: 20px;">
+                <img src="{{ contact.avatar }}" alt="Avatar" width="200" height="200">
+            </div>
+
+            <!-- User Details -->
+            <div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>ID:</th>
+                            <td>{{ contact.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Username:</th>
+                            <td>{{ contact.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>{{ contact.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone:</th>
+                            <td>{{ contact.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Birthday:</th>
+                            <td>{{ contact.birthday }}</td>
+                        </tr>
+                        <tr>
+                            <th>Created At:</th>
+                            <td>{{ contact.created_at }}</td>
+                        </tr>
+                        <tr>
+                            <th>Role:</th>
+                            <td>{{ contact.role }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div style="margin-top: 20px;">
+            <a href="/edit_contact"><button>Edit Contact</button></a>
+            <!-- <a href="/my_photos"><button>My Photos</button></a> -->
+            <a href="/upload_photo"><button>Upload Photo</button></a>
+        </div>
+
+    {% else %}
+        <p>No user details available.</p>
+    {% endif %}
+
+{% endblock %}

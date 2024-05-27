@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Photo{% endblock %}
+
+{% block content %}
+
+<h1>Upload Photo</h1>
+
+<!-- Photo Upload Form -->
+<form id="uploadForm" action="/upload_photo" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+    <label for="photo">Select Photo:</label><br>
+    <input type="file" id="photo" name="photo" accept="image/*" required><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="4" cols="50" maxlength="500" required></textarea><br><br>
+
+    <label for="tags">Tags (comma-separated):</label><br>
+    <input type="text" id="tags" name="tags" pattern="^([^,]+,)*[^,]+$" title="Comma-separated tags, no spaces" required><br><br>
+
+    <button type="submit">Upload Photo</button>
+</form>
+
+<script>
+    function validateForm() {
+        const tagsInput = document.getElementById("tags").value;
+        const tagsPattern = /^([^,]+,)*[^,]+$/;
+        if (!tagsPattern.test(tagsInput)) {
+            alert("Please enter comma-separated tags without spaces.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+{% endblock %}
