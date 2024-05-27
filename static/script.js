@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function togglePasswordVisibility() {
     const passwordInput = document.getElementById('password');
-    const togglePassword = document.querySelector('.toggle-password');
+    const togglePassword = document.querySelector('.toggle-password' && '.toggle-password-signup');
     
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';

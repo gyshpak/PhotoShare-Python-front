@@ -7,10 +7,10 @@
 <h1>Photos</h1>
 
 <!-- Display All Photos -->
-<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+<div class="photo-container">
     {% for photo in photos %}
-        <div style="max-width: 600px;">
-            <img src="{{ photo.url }}" alt="Photo" style="width: 100%; height: auto;">
+        <div class="photo-card">
+            <img src="{{ photo.url }}" alt="Photo" class="photo-image">
             <p><strong>Description:</strong> {{ photo.description }}</p>
             <p><strong>Tags:</strong> {{ photo.tags }}</p>
             <p><strong>Created At:</strong> {{ photo.created_at }}</p>
