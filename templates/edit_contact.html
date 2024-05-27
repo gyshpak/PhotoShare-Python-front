@@ -9,10 +9,10 @@
     <!-- User Details Form -->
     <form action="/edit_user" method="post" onsubmit="return validateForm()">
         <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br><br>
+        <input type="text" id="username" name="username" maxlength="40" minlength="3" required><br><br>
 
         <label for="phone">Phone:</label><br>
-        <input type="tel" id="phone" name="phone" pattern="^\+?[1-9]\d{1,14}$" required><br><br>
+        <input type="tel" id="phone" name="phone" maxlength="13" minlength="10" pattern="^\+?[1-9]\d{1,14}$" required><br><br>
 
         <label for="birthday">Birthday:</label><br>
         <input type="date" id="birthday" name="birthday" required><br><br>

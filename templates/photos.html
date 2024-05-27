@@ -7,26 +7,28 @@
 <h1>Photos</h1>
 
 <!-- Display All Photos -->
-<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+<div class="photo-container">
     {% for photo in photos %}
-        <div style="max-width: 600px;">
-            <img src="{{ photo.url }}" alt="Photo" style="width: 100%; height: auto;">
-            <p><strong>Description:</strong> {{ photo.description }}</p>
-            <p><strong>Tags:</strong> {{ photo.tags }}</p>
-            <p><strong>Created At:</strong> {{ photo.created_at }}</p>
-            <!-- Comments Section -->
-            <h3>Comments</h3>
-            <ul>
-                {% for comment in photo.comments %}
-                    <li>{{ comment.text }} - <em>{{ comment.username }}</em></li>
-                {% endfor %}
-            </ul>
-            <!-- Add Comment Form -->
-            <form action="/add_comment" method="post">
-                <input type="hidden" name="photo_id" value="{{ photo.id }}">
-                <textarea name="comment" rows="2" placeholder="Add a comment" required></textarea><br>
-                <button type="submit">Add Comment</button>
-            </form>
+        <div class="photo-card">
+            <img src="{{ photo.url }}" alt="Photo" class="photo-image">
+            <div class="photo-details">
+                <p><strong>Description:</strong> {{ photo.description }}</p>
+                <p><strong>Tags:</strong> {{ photo.tags }}</p>
+                <p><strong>Created At:</strong> {{ photo.created_at }}</p>
+                <!-- Comments Section -->
+                <h3>Comments</h3>
+                <ul>
+                    {% for comment in photo.comments %}
+                        <li>{{ comment.text }} - <em>{{ comment.username }}</em></li>
+                    {% endfor %}
+                </ul>
+                <!-- Add Comment Form -->
+                <form action="/add_comment" method="post">
+                    <input type="hidden" name="photo_id" value="{{ photo.id }}">
+                    <textarea name="comment" rows="2" placeholder="Add a comment" class="form-control" maxlength="500" required></textarea><br>
+                    <button type="submit">Add Comment</button>
+                </form>
+            </div>
         </div>
     {% endfor %}
 </div>
