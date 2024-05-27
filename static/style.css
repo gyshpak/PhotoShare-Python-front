@@ -78,6 +78,35 @@ button::before {
     align-items: flex-start;
 }
 
+.form-login input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+}
+
+.password-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none;
+}
+
+.form-login input:focus {
+    border-color: #6200EA;
+    outline: none;
+    box-shadow: 0 0 5px rgba(98, 0, 234, 0.5);
+}
+
 button:active::before {
     width: 200%;
     height: 200%;
