@@ -113,7 +113,6 @@ async def login_user(
             response.raise_for_status()
             tokens = response.json()
 
-            # ACCESS_TOKEN = tokens["access_token"]
             request.session["access_token"] = tokens["access_token"]
 
             return templates.TemplateResponse(
@@ -127,9 +126,13 @@ async def login_user(
                     return templates.TemplateResponse(
                         "user_banned.html", {"request": request}
                     )
-                if error_detail == "Email not confirmed":
+                elif error_detail == "Email not confirmed":
                     return templates.TemplateResponse(
-                        "user_banned.html", {"request": request}
+                        "email_not_confirmed.html", {"request": request}
+                    )
+                elif error_detail == "Invalid email" or error_detail == "Invalid password":
+                    return templates.TemplateResponse(
+                        "login_failure.html", {"request": request}
                     )
                 else:
                     return templates.TemplateResponse(
@@ -357,7 +360,9 @@ async def upload_photo(
             files=files,
         )
         response.raise_for_status()
-    return templates.TemplateResponse("upload_success.html", {"request": request})
+    return templates.TemplateResponse(
+        "upload_avatar_success.html", {"request": request}
+    )
 
 # Функція оновлення ролі
 @app.post("/role", response_class=HTMLResponse)

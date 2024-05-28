@@ -4,16 +4,16 @@
 
 {% block content %}
 
-<h1>Додавання відображення</h1>
+<h1>Заміна відображення</h1>
 
 <!-- Photo Upload Form -->
 <form id="updateAvaForm" action="/update_avatar" method="post" enctype="multipart/form-data">
-    <label for="photo">Оберіть диво:</label><br>
+    <!-- <label for="photo">Оберіть відображення:</label><br> -->
 
     <input type="file" class="file-upload-input" id="photo" name="photo" accept="image/*" required />
-    <label for="photo" class="file-upload-label">Оберіть диво</label>
+    <label for="photo" class="file-upload-label">Оберіть відображення</label>
 
-    <button type="submit">Додати відображення</button>
+    <button type="submit">Змінити відображення</button>
 </form>
 
 
