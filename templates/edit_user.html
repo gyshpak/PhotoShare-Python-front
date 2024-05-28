@@ -4,20 +4,20 @@
 
 {% block content %}
 
-    <h1>Edit User Details</h1>
+    <h1>Оновлення секретних відомостей</h1>
 
     <!-- User Details Form -->
     <form action="/edit_user" method="post" onsubmit="return validateForm()">
-        <label for="username">Username:</label><br>
+        <label for="username">Істинне імʼя:</label><br>
         <input type="text" id="username" name="username" maxlength="40" minlength="3" required><br><br>
 
-        <label for="phone">Phone:</label><br>
+        <label for="phone">Чарофон:</label><br>
         <input type="tel" id="phone" name="phone" maxlength="13" minlength="10" pattern="^\+?[1-9]\d{1,14}$" required><br><br>
 
-        <label for="birthday">Birthday:</label><br>
+        <label for="birthday">Поява на світ:</label><br>
         <input type="date" id="birthday" name="birthday" required><br><br>
 
-        <button type="submit">Save</button>
+        <button type="submit">Зберегти</button>
     </form>
 
     <script>

@@ -3,15 +3,15 @@
 {% block title %}Comments{% endblock %}
 
 {% block content %}
-    <h1>Comments</h1>
+    <h1>Думки магів</h1>
 
     <!-- Get the photo ID from the URL and display corresponding comments -->
     {% if photo %}
         <div class="photo-card">
             <img src="{{ photo.url }}" alt="Photo" class="photo-image">
-            <p><strong>Description:</strong> {{ photo.description }}</p>
-            <p><strong>Tags:</strong> {{ photo.tags }}</p>
-            <p><strong>Created At:</strong> {{ photo.created_at }}</p>
+            <p><strong>Опис закляття:</strong> {{ photo.description }}</p>
+            <p><strong>Використані заклінання:</strong> {{ photo.tags }}</p>
+            <!-- <p><strong>Created At:</strong> {{ photo.created_at }}</p> -->
         </div>
     
     {% else %}

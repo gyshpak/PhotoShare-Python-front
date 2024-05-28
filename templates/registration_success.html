@@ -1,31 +1,23 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration Success</title>
-</head>
-<body> -->
-
 {% extends "base.html" %}
 
 {% block title %}Registration{% endblock %}
 
 {% block content %}
 
+    <h1>Обряд посвячення</h1>
     <h1>Обряд посвячення пройдено успішно</h1>
     <p>Деталі вашого статусу мага:</p>
     <ul>
-        <li><strong>User ID:</strong> {{ data.user.id }}</li>
-        <li><strong>Userame:</strong> {{ data.user.name }}</li>
-        <li><strong>Email:</strong> {{ data.user.email }}</li>
-        <li><strong>Phone:</strong> {{ data.user.phone }}</li>
-        <li><strong>Birthday:</strong> {{ data.user.birthday }}</li>
-        <li><strong>Created_at:</strong> {{ data.user.created_at }}</li>
+        <!-- <li><strong>User ID:</strong> {{ data.user.id }}</li> -->
+        <li><strong>Істинне імʼя:</strong> {{ data.user.name }}</li>
+        <li><strong>Совина пошта:</strong> {{ data.user.email }}</li>
+        <li><strong>Чарофон:</strong> {{ data.user.phone }}</li>
+        <li><strong>Поява на світ:</strong> {{ data.user.birthday }}</li>
+        <!-- <li><strong>Created_at:</strong> {{ data.user.created_at }}</li> -->
         {% if data.avatar %}
-        <li><strong>Avatar:</strong> <img src="{{ data.user.avatar }}" alt="Avatar"></li>
+        <li><strong>:</strong> <img src="{{ data.user.avatar }}" alt="Avatar"></li>
         {% endif %}
-        <li><strong>Role:</strong> {{ data.user.role }}</li>
+        <li><strong>Ранг:</strong> {{ data.user.role }}</li>
         <!-- <form action="/" method="get">
         <button type="submit">Return to Main Page</button>
     </form> -->

@@ -4,16 +4,16 @@
 
 {% block content %}
 
-    <h1>User List</h1>
+    <h1>Список чарівників</h1>
     
     <form action="/users" method="get" class="form-users">
-        <label for="limit">Limit:</label>
+        <label for="limit">Ліміт:</label>
         <input type="number" id="limit" name="limit" value="10" min="1" max="20" class="form-control">
         <br>
-        <label for="offset">Offset:</label>
+        <label for="offset">Пропустити:</label>
         <input type="number" id="offset" name="offset" value="0" min="0" class="form-control">
         <br>
-        <button type="submit">Get Users</button>
+        <button type="submit">Показати чарівників</button>
     </form>
 
     <!-- Display Users -->
@@ -22,14 +22,14 @@
             <thead>
                 <tr>
                     <!-- <th>ID</th> -->
-                    <th>Userame</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Birthday</th>
+                    <th>Істинне імʼя</th>
+                    <th>Совина пошта</th>
+                    <th>Чарофон</th>
+                    <th>Поява на світ</th>
                     <!-- <th>Created_at</th> -->
-                    <th>Avatar</th>
-                    <th>Role</th>
-                    <th>Actions</th>  <!-- Додано новий стовпчик для дій -->
+                    <th>Відображення</th>
+                    <th>Ранг</th>
+                    <th>Активувати</th>  <!-- Додано новий стовпчик для дій -->
                 </tr>
             </thead>
             <tbody>
@@ -47,9 +47,9 @@
                             <form action="/role" method="post" class="form-block">
                                 <input type="hidden" name="user_id" value="{{ user.id }}">
                                 <select name="role">
-                                    <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
-                                    <option value="moderator" {% if user.role == 'moderator' %}selected{% endif %}>Moderator</option>
-                                    <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+                                    <option value="user" {% if user.role == 'user' %}selected{% endif %}>Маг 1 колу</option>
+                                    <option value="moderator" {% if user.role == 'moderator' %}selected{% endif %}>Маг 2 колу</option>
+                                    <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Маг 3 колу</option>
                                 </select>
                                 <button type="submit" class="btn-save">Save</button>
                             </form>
@@ -57,10 +57,10 @@
                             <form action="/ban" method="post" class="form-block">
                                 <input type="hidden" name="user_id" value="{{ user.id }}">
                                 <select name="isbanned">
-                                    <option value="banned" selected>banned</option>
-                                    <option value="unbanned" selected>unbanned</option>
+                                    <option value="banned" selected>заблокувати </option>
+                                    <option value="unbanned" selected>розблокувати</option>
                                 </select>
-                                <button type="submit" class="btn-block">Block</button>
+                                <button type="submit" class="btn-block">Блокування</button>
                             </form>
                         </td>
                     </tr>

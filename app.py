@@ -15,6 +15,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 from starlette.middleware.sessions import SessionMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
+from starlette.responses import Response
 import httpx
 import uvicorn
 import requests
@@ -32,6 +34,20 @@ base_url = "https://photoshare-python-back.onrender.com/api"
 # base_url = "https://photoshare-python-back-48d1.onrender.com/api"
 
 app.add_middleware(SessionMiddleware, secret_key="your_secret_key")
+
+
+class TimeoutMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
+        try:
+            response = await call_next(request)
+            return response
+        except httpx.ReadTimeout:
+            return templates.TemplateResponse(
+                # "Timeout.html", {"request": request, "message": "The request timed out. Please try again later."}
+                "Timeout.html", {"request": request}
+            )
+
+app.add_middleware(TimeoutMiddleware)
 
 
 # Базовий шаблон з кнопками для запуску різних функцій
@@ -109,7 +125,11 @@ async def login_user(
                 error_detail = e.response.json().get("detail", "Unauthorized")
                 if error_detail == "User is banned":
                     return templates.TemplateResponse(
-                        "Unauthorized.html", {"request": request}
+                        "user_banned.html", {"request": request}
+                    )
+                if error_detail == "Email not confirmed":
+                    return templates.TemplateResponse(
+                        "user_banned.html", {"request": request}
                     )
                 else:
                     return templates.TemplateResponse(

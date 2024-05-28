@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <h1>User Details</h1>
+    <h1>Секрети створіння</h1>
 
     <!-- Display Single User -->
     {% if user %}
@@ -23,20 +23,20 @@
                             <td>{{ user.id }}</td>
                         </tr> -->
                         <tr>
-                            <th>Username:</th>
+                            <th>Істинне імʼя:</th>
                             <td>{{ user.username }}</td>
                         </tr>
                         <tr>
-                            <th>Email:</th>
+                            <th>Совина пошта:</th>
                             <td>{{ user.email }}</td>
                         </tr>
                         <tr>
-                            <th>Phone:</th>
+                            <th>Чарофон:</th>
                             <br />
                             <td>{{ user.phone }}</td>
                         </tr>
                         <tr>
-                            <th>Birthday:</th>
+                            <th>Поява на світ:</th>
                             <td>{{ user.birthday }}</td>
                         </tr>
                         <!-- <tr>
@@ -44,7 +44,7 @@
                             <td>{{ user.created_at }}</td>
                         </tr> -->
                         <tr>
-                            <th>Role:</th>
+                            <th>Ранг:</th>
                             <td>{{ user.role }}</td>
                         </tr>
                     </tbody>
@@ -54,15 +54,15 @@
 
         <!-- Buttons -->
         <div class="buttons">
-            <a href="/edit_user"><button>Edit User</button></a>
+            <a href="/edit_user"><button>Оновити секретні відомості</button></a>
             <!-- <a href="/my_photos"><button>My Photos</button></a> -->
-            <a href="/upload_photo"><button>Upload Photo</button></a>
-            <a href="/update_avatar"><button>Update Avatar</button></a>
-            <a href="/logout"><button class="btn-block">Unnigilaciya</button></a>
+            <a href="/upload_photo"><button>Додати диво</button></a>
+            <a href="/update_avatar"><button>Додати відображення </button></a>
+            <a href="/logout"><button class="btn-block">Закрити портал</button></a>
         </div>
 
     {% else %}
-        <p>No user details available.</p>
+        <p>Недопустимі значення.</p>
     {% endif %}
 
 {% endblock %}
