@@ -429,44 +429,128 @@ async def change_role(request: Request, user_id: int = Form(...), isbanned: str 
 async def upload_photo_form(request: Request):
     return templates.TemplateResponse("upload_photo.html", {"request": request})
 
-# Функція завантаження фото
-@app.post("/upload_photo", response_class=HTMLResponse)
-async def upload_photo(
-    request: Request,
-    photo: UploadFile = File(...),
-    description: str = Form(...),
-    tags: str = Form(...),
-):
-    access_token = request.session.get("access_token")
-    if not access_token:
-        # raise HTTPException(status_code=401, detail="Access token missing or invalid")
-        return templates.TemplateResponse(
-                    "access_denied.html", {"request": request}
-                )
 
-    # tags_list = tags.split(",")
+# # Функція завантаження фото
+# @app.post("/upload_photo", response_class=HTMLResponse)
+# async def upload_photo(
+#     request: Request,
+#     photo: UploadFile = File(...),
+#     description: str = Form(...),
+#     tags: str = Form(...),
+# ):
+#     access_token = request.session.get("access_token")
+#     if not access_token:
+#         # raise HTTPException(status_code=401, detail="Access token missing or invalid")
+#         return templates.TemplateResponse(
+#                     "access_denied.html", {"request": request}
+#                 )
 
-    async with httpx.AsyncClient() as client:
+#     # tags_list = tags.split(",")
 
-        form_data = {
-            "description": description,
-            "tags": tags,
-        }
+#     async with httpx.AsyncClient() as client:
 
-        files = {"file": (photo.filename, photo.file, photo.content_type)}
+#         form_data = {
+#             "description": description,
+#             "tags": tags,
+#         }
 
-        headers = {"Authorization": f"Bearer {access_token}"}
+#         files = {"file": (photo.filename, photo.file, photo.content_type)}
 
-        response = requests.post(
-            f"{base_url}/photos",
-            headers=headers,
-            files=files,
-            data=form_data
-        )
+#         headers = {"Authorization": f"Bearer {access_token}"}
 
-        response.raise_for_status()
+#         response = requests.post(
+#             f"{base_url}/photos",
+#             headers=headers,
+#             files=files,
+#             data=form_data
+#         )
 
-    return templates.TemplateResponse("upload_success.html", {"request": request})
+#         response.raise_for_status()
+
+#     return templates.TemplateResponse("upload_success.html", {"request": request})
+
+# # Функція перегляду фото
+# @app.get("/photos", response_class=HTMLResponse)
+# async def get_photos(request: Request):
+#     access_token = request.session.get("access_token")
+#     if not access_token:
+#         return templates.TemplateResponse(
+#                     "access_denied.html", {"request": request}
+#                 )
+#     async with httpx.AsyncClient() as client:
+#         try:
+#             headers = {"Authorization": f"Bearer {access_token}"}
+
+#             response = await client.get(
+#                 f"{base_url}/photos?limit=50",
+#                 headers=headers,
+#                 follow_redirects=True,
+#             )
+#             response.raise_for_status()
+#             photos = response.json()
+
+#             for photo in photos:
+#                 response_QR = await client.get(
+#                     f"{base_url}/photos/link/{photo['id']}",
+#                     headers=headers,
+#                     follow_redirects=True,
+#                 )
+#                 response_QR.raise_for_status()
+#                 photo["QR_code"] = response_QR.content
+
+#             return templates.TemplateResponse(
+#                 "photos.html", {"request": request, "photos": photos}
+#             )
+#         except httpx.HTTPStatusError as e:
+#             if e.response.status_code == 401:
+#                 return templates.TemplateResponse(
+#                     "Unauthorized.html", {"request": request}
+#                 )
+#             else:
+#                 raise HTTPException(
+#                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+#                     detail=f"Failed to fetch photos: {e}",
+#                 )
+
+
+# # Функція завантаження фото
+# @app.post("/upload_photo", response_class=HTMLResponse)
+# async def upload_photo(
+#     request: Request,
+#     photo: UploadFile = File(...),
+#     description: str = Form(...),
+#     tags: str = Form(...),
+# ):
+#     access_token = request.session.get("access_token")
+#     if not access_token:
+#         # raise HTTPException(status_code=401, detail="Access token missing or invalid")
+#         return templates.TemplateResponse(
+#                     "access_denied.html", {"request": request}
+#                 )
+
+#     # tags_list = tags.split(",")
+
+#     async with httpx.AsyncClient() as client:
+
+#         form_data = {
+#             "description": description,
+#             "tags": tags,
+#         }
+
+#         files = {"file": (photo.filename, photo.file, photo.content_type)}
+
+#         headers = {"Authorization": f"Bearer {access_token}"}
+
+#         response = requests.post(
+#             f"{base_url}/photos",
+#             headers=headers,
+#             files=files,
+#             data=form_data
+#         )
+
+#         response.raise_for_status()
+
+#     return templates.TemplateResponse("upload_success.html", {"request": request})
 
 # Функція перегляду фото
 @app.get("/photos", response_class=HTMLResponse)
@@ -488,14 +572,14 @@ async def get_photos(request: Request):
             response.raise_for_status()
             photos = response.json()
 
-            for photo in photos:
-                response_QR = await client.get(
-                    f"{base_url}/photos/link/{photo['id']}",
-                    headers=headers,
-                    follow_redirects=True,
-                )
-                response_QR.raise_for_status()
-                photo["QR_code"] = response_QR.content
+            # for photo in photos:
+            #     response_QR = await client.get(
+            #         f"{base_url}/photos/link/{photo['id']}",
+            #         headers=headers,
+            #         follow_redirects=True,
+            #     )
+            #     response_QR.raise_for_status()
+            #     photo["QR_code"] = response_QR.content
 
             return templates.TemplateResponse(
                 "photos.html", {"request": request, "photos": photos}
@@ -510,6 +594,48 @@ async def get_photos(request: Request):
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     detail=f"Failed to fetch photos: {e}",
                 )
+
+
+@app.get("/photo/{photo_id}", response_class=HTMLResponse)
+async def get_photo(request: Request, photo_id: str):
+    access_token = request.session.get("access_token")
+    if not access_token:
+        return templates.TemplateResponse("access_denied.html", {"request": request})
+    async with httpx.AsyncClient() as client:
+        try:
+            headers = {"Authorization": f"Bearer {access_token}"}
+
+            response = await client.get(
+                f"{base_url}/photos/{photo_id}",
+                headers=headers,
+                follow_redirects=True,
+            )
+            response.raise_for_status()
+            photo = response.json()
+        
+            response_QR = await client.get(
+                f"{base_url}/photos/link/{photo['id']}",
+                headers=headers,
+                follow_redirects=True,
+            )
+
+            response_QR.raise_for_status()
+            photo["QR_code"] = response_QR.content
+
+            return templates.TemplateResponse(
+                "photo.html", {"request": request, "photo": photo}
+            )
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 401:
+                return templates.TemplateResponse(
+                    "Unauthorized.html", {"request": request}
+                )
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail=f"Failed to fetch photos: {e}",
+                )
+
 
 # Функція додавання комментарів
 @app.post("/add_comment", response_class=HTMLResponse)
@@ -527,6 +653,43 @@ async def add_comment(
         headers = {"Authorization": f"Bearer {access_token}"}
         response = await client.post(
             f"{base_url}/comments/{photo_id}", headers=headers, json=comment
+        )
+        response.raise_for_status()
+
+    return RedirectResponse(url=f"/photo/{photo_id}", status_code=303)
+
+
+# Функція видалення коментарів
+@app.post("/delete_comment", response_class=HTMLResponse)
+async def delete_comment(
+    request: Request, comment_id: str = Form(...), photo_id: str = Form(...)
+):
+    access_token = request.session.get("access_token")
+    if not access_token:
+        return templates.TemplateResponse("access_denied.html", {"request": request})
+
+    async with httpx.AsyncClient() as client:
+        headers = {"Authorization": f"Bearer {access_token}"}
+        response = await client.delete(
+            f"{base_url}/comments/record/{comment_id}", headers=headers
+        )
+        response.raise_for_status()
+
+    return RedirectResponse(url=f"/photo/{photo_id}", status_code=303)
+
+
+@app.post("/dell_photo", response_class=HTMLResponse)
+async def delete_photo(
+    request: Request, photo_id: str = Form(...)
+):
+    access_token = request.session.get("access_token")
+    if not access_token:
+        return templates.TemplateResponse("access_denied.html", {"request": request})
+
+    async with httpx.AsyncClient() as client:
+        headers = {"Authorization": f"Bearer {access_token}"}
+        response = await client.delete(
+            f"{base_url}/photos/{photo_id}", headers=headers
         )
         response.raise_for_status()
 
