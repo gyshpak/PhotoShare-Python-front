@@ -1,10 +1,15 @@
+@font-face {
+    font-family: 'Magical';
+    src: url('kurale-regular.otf');
+}
+
 body {
     margin: 0;
     padding: 0;
     background-color: #000;
     cursor: none;
     color: #ffffff;
-    font-family: Arial, sans-serif;
+    font-family: 'Magical', Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,7 +65,7 @@ textarea {
     border: none;
     border-radius: 25px;
     padding: 15px;
-    font-family: Arial, sans-serif;
+    font-family: 'Magical', Arial, sans-serif;
     scrollbar-width: none;
 }
 
@@ -71,12 +76,14 @@ select {
     border-radius: 50px;
     padding: 5px;
     margin: 10px;
+    font-family: 'Magical', Arial, sans-serif;
 }
 
 option {
     background-color: #000;
     color: #fff;
     border-radius: 50px;
+    font-family: 'Magical', Arial, sans-serif;
 }
 
 input {
@@ -86,6 +93,7 @@ input {
     border: none;
     margin-top: 15px;
     font-size: 18px;
+    font-family: 'Magical', Arial, sans-serif;
 }
 
 button {
@@ -105,6 +113,7 @@ button {
     position: relative;
     overflow: hidden;
     cursor: none;
+    font-family: 'Magical', Arial, sans-serif;
 }
 
 button::before {
@@ -224,6 +233,7 @@ select:focus-visible {
         margin-bottom: 10px;
         border: 1px solid #ccc;
         font-size: 18px;
+        font-family: 'Magical', Arial, sans-serif;
     }
 }
 
