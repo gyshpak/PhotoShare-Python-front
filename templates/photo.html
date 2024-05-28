@@ -5,14 +5,14 @@
 {% block content %}
 
 <h1>Чарівні дива</h1>
-    <h1>Photo Details</h1>
+    <h2>Подробиці дива</h2>
     <div class="photo-card">
         <img src="{{ photo.url }}" alt="Photo" class="photo-image">
         <img src="data:image/png;base64,{{ photo.QR_code | b64encode }}" alt="QR Code" style="width: 100px; height: auto;">
         <div class="photo-details">
             <p><strong>Опис закляття:</strong> {{ photo.description }}</p>
             <p><strong>Використані заклінання:</strong> {{ photo.tags }}</p>
-            <!-- <p><strong>Час створення дива:</strong> {{ photo.created_at }}</p> -->
+            <p><strong>Час створення дива:</strong> {{ photo.created_at }}</p>
             <!-- Comments Section -->
             <h3>Схвальні думки про диво</h3>
             <ul>

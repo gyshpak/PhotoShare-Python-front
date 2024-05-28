@@ -669,13 +669,25 @@ async def delete_comment(
         return templates.TemplateResponse("access_denied.html", {"request": request})
 
     async with httpx.AsyncClient() as client:
-        headers = {"Authorization": f"Bearer {access_token}"}
-        response = await client.delete(
-            f"{base_url}/comments/record/{comment_id}", headers=headers
-        )
-        response.raise_for_status()
+        try:
+            headers = {"Authorization": f"Bearer {access_token}"}
+            response = await client.delete(
+                f"{base_url}/comments/record/{comment_id}", headers=headers
+            )
+            response.raise_for_status()
 
-    return RedirectResponse(url=f"/photo/{photo_id}", status_code=303)
+            return RedirectResponse(url=f"/photo/{photo_id}", status_code=303)
+
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 403:
+                return templates.TemplateResponse(
+                    "only_moderator.html", {"request": request}
+                )
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail=f"Failed to fetch users: {e}",
+                )
 
 
 @app.post("/dell_photo", response_class=HTMLResponse)
@@ -687,13 +699,25 @@ async def delete_photo(
         return templates.TemplateResponse("access_denied.html", {"request": request})
 
     async with httpx.AsyncClient() as client:
-        headers = {"Authorization": f"Bearer {access_token}"}
-        response = await client.delete(
-            f"{base_url}/photos/{photo_id}", headers=headers
-        )
-        response.raise_for_status()
+        try:
+            headers = {"Authorization": f"Bearer {access_token}"}
+            response = await client.delete(
+                f"{base_url}/photos/{photo_id}", headers=headers
+            )
+            response.raise_for_status()
 
-    return RedirectResponse(url="/photos", status_code=303)
+            return RedirectResponse(url="/photos", status_code=303)
+
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 403:
+                return templates.TemplateResponse(
+                    "only_admin.html", {"request": request}
+                )
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail=f"Failed to fetch users: {e}",
+                )
 
 
 if __name__ == "__main__":
