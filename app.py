@@ -20,6 +20,7 @@ from starlette.responses import Response
 import httpx
 import uvicorn
 import requests
+import base64
 
 app = FastAPI()
 
@@ -48,6 +49,11 @@ class TimeoutMiddleware(BaseHTTPMiddleware):
             )
 
 app.add_middleware(TimeoutMiddleware)
+
+def base64encode(value: bytes) -> str:
+    return base64.b64encode(value).decode("utf-8")
+
+templates.env.filters["b64encode"] = base64encode
 
 
 # Базовий шаблон з кнопками для запуску різних функцій
@@ -467,14 +473,9 @@ async def upload_photo(
 async def get_photos(request: Request):
     access_token = request.session.get("access_token")
     if not access_token:
-        # raise HTTPException(
-        #     status_code=status.HTTP_401_UNAUTHORIZED,
-        #     detail="Access token missing or invalid",
-        # )
         return templates.TemplateResponse(
                     "access_denied.html", {"request": request}
                 )
-
     async with httpx.AsyncClient() as client:
         try:
             headers = {"Authorization": f"Bearer {access_token}"}
@@ -486,6 +487,15 @@ async def get_photos(request: Request):
             )
             response.raise_for_status()
             photos = response.json()
+
+            for photo in photos:
+                response_QR = await client.get(
+                    f"{base_url}/photos/link/{photo['id']}",
+                    headers=headers,
+                    follow_redirects=True,
+                )
+                response_QR.raise_for_status()
+                photo["QR_code"] = response_QR.content
 
             return templates.TemplateResponse(
                 "photos.html", {"request": request, "photos": photos}

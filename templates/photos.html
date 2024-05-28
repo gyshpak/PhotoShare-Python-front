@@ -4,13 +4,14 @@
 
 {% block content %}
 
-<h1>Відображення</h1>
+<h1>Чарівні дива</h1>
 
 <!-- Display All Photos -->
 <div class="photo-container">
     {% for photo in photos %}
         <div class="photo-card">
             <img src="{{ photo.url }}" alt="Photo" class="photo-image">
+            <img src="data:image/png;base64,{{ photo.QR_code | b64encode }}" alt="QR Code" style="width: 100px; height: auto;">
             <div class="photo-details">
                 <p><strong>Опис закляття:</strong> {{ photo.description }}</p>
                 <p><strong>Використані заклінання:</strong> {{ photo.tags }}</p>
