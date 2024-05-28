@@ -331,10 +331,12 @@ async def change_role(request: Request, user_id: str = Form(...), role: str = Fo
         response = await client.put(
             f"{base_url}/users/role/{user_id}",
             headers=headers,
-            json=role
+            #json=role
+            data=form_data
         )
         response.raise_for_status()
-    return templates.TemplateResponse("users.html", {"request": request})
+    return RedirectResponse(url="/users", status_code=303)
+    #return templates.TemplateResponse("users.html", {"request": request})
 
 
 
@@ -355,10 +357,12 @@ async def change_role(request: Request, user_id: int = Form(...), isbanned: str 
         response = await client.put(
             f"{base_url}/users/ban/{user_id}",
             headers=headers,
-            json=isbanned
+            #json=isbanned
+            data=form_data
         )
         response.raise_for_status()
-    return templates.TemplateResponse("users.html", {"request": request})
+    return RedirectResponse(url="/users", status_code=303)
+    #return templates.TemplateResponse("users.html", {"request": request})
 
 
 
@@ -420,7 +424,7 @@ async def get_photos(request: Request):
             headers = {"Authorization": f"Bearer {access_token}"}
 
             response = await client.get(
-                f"{base_url}/photos",
+                f"{base_url}/photos?limit=50",
                 headers=headers,
                 follow_redirects=True,
             )
