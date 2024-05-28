@@ -63,33 +63,33 @@ function moveCursorGlow(x, y) {
 
 
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+//   document.addEventListener('DOMContentLoaded', () => {
+//     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
-    const loginButton = document.getElementById('loginButton');
-    const signupButton = document.getElementById('signupButton');
-    const userButtons = document.getElementById('userButtons');
+//     const loginButton = document.getElementById('loginButton');
+//     const signupButton = document.getElementById('signupButton');
+//     const userButtons = document.getElementById('userButtons');
 
-    if (isLoggedIn) {
-        loginButton.style.display = 'none';
-        signupButton.style.display = 'none';
-        userButtons.style.display = 'block';
-    } else {
-        loginButton.style.display = 'block';
-        signupButton.style.display = 'block';
-        userButtons.style.display = 'none';
-    }
-});
+//     if (isLoggedIn) {
+//         loginButton.style.display = 'none';
+//         signupButton.style.display = 'none';
+//         userButtons.style.display = 'block';
+//     } else {
+//         loginButton.style.display = 'block';
+//         signupButton.style.display = 'block';
+//         userButtons.style.display = 'none';
+//     }
+// });
 
-function login() {
-    localStorage.setItem('isLoggedIn', 'true');
-    window.location.reload();
-}
+// function login() {
+//     localStorage.setItem('isLoggedIn', 'true');
+//     window.location.reload();
+// }
 
-function logout() {
-    localStorage.setItem('isLoggedIn', 'false');
-    window.location.reload();
-}
+// function logout() {
+//     localStorage.setItem('isLoggedIn', 'false');
+//     window.location.reload();
+// }
 
 
 
@@ -134,7 +134,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function togglePasswordVisibility() {
     const passwordInput = document.getElementById('password');
-    const togglePassword = document.querySelector('.toggle-password' && '.toggle-password-signup');
+    const togglePassword = document.querySelector('.toggle-password-signup')
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        togglePassword.textContent = '🙈';
+    } else {
+        passwordInput.type = 'password';
+        togglePassword.textContent = '👁️';
+    }
+}
+
+function togglePasswordVisibilityLogin() {
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.querySelector('.toggle-password');
     
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';

@@ -64,6 +64,21 @@ textarea {
     scrollbar-width: none;
 }
 
+select {
+    background: none;
+    color: white;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    padding: 5px;
+    margin: 10px;
+}
+
+option {
+    background-color: #000;
+    color: #fff;
+    border-radius: 50px;
+}
+
 input {
     padding: 10px 20px;
     width: 400px;
@@ -83,7 +98,7 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 10px 2px;
+    /* margin: 10px 2px; */
     cursor: pointer;
     border-radius: 12px;
     transition: all 0.3s ease;
@@ -114,6 +129,11 @@ button:hover {
     background-color: #3700b3;
     box-shadow: 0 0 10px rgba(98, 0, 234, 0.7), 0 0 20px rgba(98, 0, 234, 0.5), 0 0 30px rgba(98, 0, 234, 0.3);
 }
+/* 
+select:focus-visible {
+    outline-offset: unset;
+} */
+
 
 ::-webkit-scrollbar {
     background-color: #000;
@@ -141,17 +161,80 @@ button:hover {
     box-shadow: 0 0 30px 20px rgba(255, 255, 255, 0.2);
 }
 
+.avatar-container {
+    margin-right: 60px;
+}
+
+.buttons {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-block {
+    background-color: #ea0000;
+    margin: 10px;
+}
+
+.btn-block:hover {
+    background-color: #b30000;
+    box-shadow: 0 0 10px rgba(234, 0, 0, 0.7), 0 0 20px rgba(234, 0, 0, 0.5), 0 0 30px rgba(234, 0, 0, 0.3);
+}
+
+.btn-save {
+    background-color: #6200ea;
+    margin: 10px;
+    margin-top: 15px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    width: 100%;
+    
+}
+
+.error-message {
+    color: red;
+}
+
+.form-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 20px rgba(98, 0, 234, 0.7), 0 0 30px rgba(98, 0, 234, 0.5), 0 0 40px rgba(98, 0, 234, 0.3);
+    outline: none;
+}
+
 .form-login, .form-signup {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
+    input {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        font-size: 18px;
+    }
 }
 
-.form-login input {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    font-size: 18px;
+.form-users {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
 }
 
 .password-wrapper {
@@ -160,30 +243,56 @@ button:hover {
     width: 100%;
 }
 
-.toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 18px;
-    user-select: none;
+.photo-card {
+    box-shadow: 0 0 10px rgba(98, 0, 234, 0.7), 0 0 20px rgba(98, 0, 234, 0.5), 0 0 30px rgba(98, 0, 234, 0.3);
+    max-width: 600px;
+    transition: transform 0.1s ease;
+    perspective: 1000px;
 }
 
-.form-login input:focus {
-    border-color: #6200EA;
-    outline: none;
-    box-shadow: 0 0 5px rgba(98, 0, 234, 0.5);
+.photo-card-two {
+    max-width: 600px;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
+.photo-container {
+    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 45px;
+    padding: 45px;
+    -webkit-box-align: center;
     align-items: center;
-    flex-direction: column;
-    width: 100%;
 }
-  
+
+.photos-container-two {
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px;
+}
+
+.photo-details {
+    padding: 15px 0px 25px 0px;
+}
+
+.photo-image {
+    width: 100%; 
+    height: auto;
+}
+
+.photo-image-two {
+    width: 100%; 
+    height: auto;
+}
+
+.photo-profile {
+    border-radius: 50%;
+    padding: 5px;
+    border: 3px solid #6200ea;
+    box-shadow: 0 0 5px #6200ea, 0 0 10px #6200ea, 0 0 15px #6200ea, 0 0 20px #3700b3, 0 0 30px #3700b3;
+    width: 150px;
+    height: 150px;
+}
+
 .star {
     position: absolute;
     width: 20px;
@@ -223,76 +332,27 @@ button:hover {
     }
 } */
 
-.buttons {
-    margin: 20px 0;
-}
-.container {
-    text-align: center;
+.success-message {
+    color: green;
 }
 
-
-.hidden {
-    display: none;
-}
-
-.profile-photo {
-    border-radius: 50%;
-    padding: 5px;
-    border: 3px solid #6200ea;
-    box-shadow: 0 0 5px #6200ea, 0 0 10px #6200ea, 0 0 15px #6200ea, 0 0 20px #3700b3, 0 0 30px #3700b3;
-    width: 200px;
-    height: 200px;
-}
-
-.form-login {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.photo-container {
-    gap: 20px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 45px;
-    padding: 45px;
-    -webkit-box-align: center;
-    align-items: center;
-}
-
-.photo-card {
-    box-shadow: 0 0 10px rgba(98, 0, 234, 0.7), 0 0 20px rgba(98, 0, 234, 0.5), 0 0 30px rgba(98, 0, 234, 0.3);
-    max-width: 600px;
-    transition: transform 0.1s ease;
-    perspective: 1000px;
-}
-
-/* .photo-card:hover {
-    transform: rotateX(0deg) rotateY(0deg);
-} */
-
-.photo-image {
-    width: 100%; 
-    height: auto;
-}
-
-.photo-details {
-    padding: 15px 0px 25px 0px;
-}
-
-.form-control:focus {
-    box-shadow: 0 0 20px rgba(98, 0, 234, 0.7), 0 0 30px rgba(98, 0, 234, 0.5), 0 0 40px rgba(98, 0, 234, 0.3);
-    outline: none;
-}
-
-.toggle-password-signup {
+.toggle-password {
     position: absolute;
     right: 10px;
-    top: 60%;
+    top: 55%;
     transform: translateY(-50%);
     cursor: pointer;
     font-size: 18px;
     user-select: none;
+    background: black;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.user-details {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
 }
 
 .users-table {
@@ -305,10 +365,4 @@ button:hover {
     th {
         padding: 0px 10px;
     }
-}
-
-.form-users {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
