@@ -106,24 +106,33 @@ async def login_user(
 
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 401:
-                return templates.TemplateResponse(
-                    "Unauthorized.html", {"request": request}
-                )
+                error_detail = e.response.json().get("detail", "Unauthorized")
+                if error_detail == "User is banned":
+                    return templates.TemplateResponse(
+                        "Unauthorized.html", {"request": request}
+                    )
+                else:
+                    return templates.TemplateResponse(
+                        "Unauthorized.html", {"request": request}
+                    )
             else:
                 raise HTTPException(
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     detail=f"Failed to fetch users: {e}",
                 )
 
-
+# Функція виходу користувача
 @app.get("/logout", response_class=HTMLResponse)
 async def login_user(request: Request):
     access_token = request.session.get("access_token")
     if not access_token:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Access token missing or invalid",
-        )
+        # raise HTTPException(
+        #     status_code=status.HTTP_401_UNAUTHORIZED,
+        #     detail="Access token missing or invalid",
+        # )
+        return templates.TemplateResponse(
+                    "access_denied.html", {"request": request}
+                )
     async with httpx.AsyncClient() as client:
         try:
             headers = {"Authorization": f"Bearer {access_token}"}
@@ -151,17 +160,18 @@ async def login_user(request: Request):
                     detail=f"Failed to fetch users: {e}",
                 )
 
-
-
-
+# Функція пошуку користувача
 @app.get("/users", response_class=HTMLResponse)
 async def search_users(request: Request, limit: int = 10, offset: int = 0):
     access_token = request.session.get("access_token")
     if not access_token:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Access token missing or invalid",
-        )
+        # raise HTTPException(
+        #     status_code=status.HTTP_401_UNAUTHORIZED,
+        #     detail="Access token missing or invalid",
+        # )
+        return templates.TemplateResponse(
+                    "access_denied.html", {"request": request}
+                )
 
     async with httpx.AsyncClient() as client:
         try:
@@ -182,7 +192,11 @@ async def search_users(request: Request, limit: int = 10, offset: int = 0):
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 401:
                 return templates.TemplateResponse(
-                    "Unauthorized.html", {"request": request}
+                    "access_denied.html", {"request": request}
+                )
+            if e.response.status_code == 403:
+                return templates.TemplateResponse(
+                    "only_admin.html", {"request": request}
                 )
             else:
                 raise HTTPException(
@@ -190,15 +204,18 @@ async def search_users(request: Request, limit: int = 10, offset: int = 0):
                     detail=f"Failed to fetch users: {e}",
                 )
 
-
+# Функція перегляду користувача
 @app.get("/user", response_class=HTMLResponse)
 async def search_users(request: Request):
     access_token = request.session.get("access_token")
     if not access_token:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Access token missing or invalid",
-        )
+        # raise HTTPException(
+        #     status_code=status.HTTP_401_UNAUTHORIZED,
+        #     detail="Access token missing or invalid",
+        # )
+        return templates.TemplateResponse(
+                    "access_denied.html", {"request": request}
+                )
 
     async with httpx.AsyncClient() as client:
         try:
@@ -219,7 +236,11 @@ async def search_users(request: Request):
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 401:
                 return templates.TemplateResponse(
-                    "Unauthorized.html", {"request": request}
+                    "access_denied.html", {"request": request}
+                )
+            if e.response.status_code == 429:
+                return templates.TemplateResponse(
+                    "suspicious_activity.html", {"request": request}
                 )
             else:
                 raise HTTPException(
@@ -227,12 +248,12 @@ async def search_users(request: Request):
                     detail=f"Failed to fetch users: {e}",
                 )
 
-
+# Функція редагування користувача
 @app.get("/edit_user", response_class=HTMLResponse)
 async def login_form(request: Request):
     return templates.TemplateResponse("/edit_user.html", {"request": request})
 
-
+# Функція редагування користувача
 @app.post("/edit_user", response_class=HTMLResponse)
 async def search_users(
     request: Request,
@@ -257,10 +278,13 @@ async def search_users(
         )
     access_token = request.session.get("access_token")
     if not access_token:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Access token missing or invalid",
-        )
+        # raise HTTPException(
+        #     status_code=status.HTTP_401_UNAUTHORIZED,
+        #     detail="Access token missing or invalid",
+        # )
+        return templates.TemplateResponse(
+                    "access_denied.html", {"request": request}
+                )
 
     async with httpx.AsyncClient() as client:
         try:
@@ -286,14 +310,12 @@ async def search_users(
                     detail=f"Failed to fetch users: {e}",
                 )
 
-
-
+# Функція оновлення аватара
 @app.get("/update_avatar", response_class=HTMLResponse)
 async def upload_photo_form(request: Request):
     return templates.TemplateResponse("update_avatar.html", {"request": request})
 
-
-
+# Функція оновлення аватара
 @app.post("/update_avatar", response_class=HTMLResponse)
 async def upload_photo(
     request: Request,
@@ -301,7 +323,10 @@ async def upload_photo(
 ):
     access_token = request.session.get("access_token")
     if not access_token:
-        raise HTTPException(status_code=401, detail="Access token missing or invalid")
+        # raise HTTPException(status_code=401, detail="Access token missing or invalid")
+        return templates.TemplateResponse(
+                    "access_denied.html", {"request": request}
+                )
 
     async with httpx.AsyncClient() as client:
         files = {"file": (photo.filename, photo.file, photo.content_type)}
@@ -314,12 +339,15 @@ async def upload_photo(
         response.raise_for_status()
     return templates.TemplateResponse("upload_success.html", {"request": request})
 
-
+# Функція оновлення ролі
 @app.post("/role", response_class=HTMLResponse)
 async def change_role(request: Request, user_id: str = Form(...), role: str = Form(...)):
     access_token = request.session.get("access_token")
     if not access_token:
-        raise HTTPException(status_code=401, detail="Access token missing or invalid")
+        # raise HTTPException(status_code=401, detail="Access token missing or invalid")
+        return templates.TemplateResponse(
+                    "access_denied.html", {"request": request}
+                )
     
     async with httpx.AsyncClient() as client:
         form_data = {
@@ -338,14 +366,15 @@ async def change_role(request: Request, user_id: str = Form(...), role: str = Fo
     return RedirectResponse(url="/users", status_code=303)
     #return templates.TemplateResponse("users.html", {"request": request})
 
-
-
-
+# Функція блокування користувача
 @app.post("/ban", response_class=HTMLResponse)
 async def change_role(request: Request, user_id: int = Form(...), isbanned: str = Form(...)):
     access_token = request.session.get("access_token")
     if not access_token:
-        raise HTTPException(status_code=401, detail="Access token missing or invalid")
+        # raise HTTPException(status_code=401, detail="Access token missing or invalid")
+        return templates.TemplateResponse(
+                    "access_denied.html", {"request": request}
+                )
     
     async with httpx.AsyncClient() as client:
         form_data = {
@@ -364,16 +393,12 @@ async def change_role(request: Request, user_id: int = Form(...), isbanned: str 
     return RedirectResponse(url="/users", status_code=303)
     #return templates.TemplateResponse("users.html", {"request": request})
 
-
-
-
-
-
+# Функція завантаження фото
 @app.get("/upload_photo", response_class=HTMLResponse)
 async def upload_photo_form(request: Request):
     return templates.TemplateResponse("upload_photo.html", {"request": request})
 
-
+# Функція завантаження фото
 @app.post("/upload_photo", response_class=HTMLResponse)
 async def upload_photo(
     request: Request,
@@ -383,7 +408,10 @@ async def upload_photo(
 ):
     access_token = request.session.get("access_token")
     if not access_token:
-        raise HTTPException(status_code=401, detail="Access token missing or invalid")
+        # raise HTTPException(status_code=401, detail="Access token missing or invalid")
+        return templates.TemplateResponse(
+                    "access_denied.html", {"request": request}
+                )
 
     # tags_list = tags.split(",")
 
@@ -409,15 +437,18 @@ async def upload_photo(
 
     return templates.TemplateResponse("upload_success.html", {"request": request})
 
-
+# Функція перегляду фото
 @app.get("/photos", response_class=HTMLResponse)
 async def get_photos(request: Request):
     access_token = request.session.get("access_token")
     if not access_token:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Access token missing or invalid",
-        )
+        # raise HTTPException(
+        #     status_code=status.HTTP_401_UNAUTHORIZED,
+        #     detail="Access token missing or invalid",
+        # )
+        return templates.TemplateResponse(
+                    "access_denied.html", {"request": request}
+                )
 
     async with httpx.AsyncClient() as client:
         try:
@@ -445,14 +476,17 @@ async def get_photos(request: Request):
                     detail=f"Failed to fetch photos: {e}",
                 )
 
-
+# Функція додавання комментарів
 @app.post("/add_comment", response_class=HTMLResponse)
 async def add_comment(
     request: Request, photo_id: str = Form(...), comment: str = Form(...)
 ):
     access_token = request.session.get("access_token")
     if not access_token:
-        raise HTTPException(status_code=401, detail="Access token missing or invalid")
+        # raise HTTPException(status_code=401, detail="Access token missing or invalid")
+        return templates.TemplateResponse(
+                    "access_denied.html", {"request": request}
+                )
 
     async with httpx.AsyncClient() as client:
         headers = {"Authorization": f"Bearer {access_token}"}

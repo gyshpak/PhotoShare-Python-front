@@ -13,8 +13,8 @@
 
 {% block content %}
 
-    <h1>User Registration Successful!</h1>
-    <p>Here are the details of the registered user:</p>
+    <h1>Обряд посвячення пройдено успішно</h1>
+    <p>Деталі вашого статусу мага:</p>
     <ul>
         <li><strong>User ID:</strong> {{ data.user.id }}</li>
         <li><strong>Userame:</strong> {{ data.user.name }}</li>
@@ -26,9 +26,9 @@
         <li><strong>Avatar:</strong> <img src="{{ data.user.avatar }}" alt="Avatar"></li>
         {% endif %}
         <li><strong>Role:</strong> {{ data.user.role }}</li>
-        <form action="/" method="get">
+        <!-- <form action="/" method="get">
         <button type="submit">Return to Main Page</button>
-    </form>
+    </form> -->
     </ul>
 <!-- </body>
 </html> -->
