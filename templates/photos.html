@@ -4,30 +4,18 @@
 
 {% block content %}
 
-<h1>Відображення</h1>
+<h1>Чарівні дива</h1>
 
 <!-- Display All Photos -->
 <div class="photo-container">
     {% for photo in photos %}
         <div class="photo-card">
-            <img src="{{ photo.url }}" alt="Photo" class="photo-image">
+            <!-- Display photo and description -->
+            <a href="/photo/{{ photo.id }}">
+                <img src="{{ photo.url }}" alt="Photo" class="photo-image">
+            </a>
             <div class="photo-details">
                 <p><strong>Опис закляття:</strong> {{ photo.description }}</p>
-                <p><strong>Використані заклінання:</strong> {{ photo.tags }}</p>
-                <p><strong>Час створення дива:</strong> {{ photo.created_at }}</p>
-                <!-- Comments Section -->
-                <h3>Схвальні думки про диво</h3>
-                <ul>
-                    {% for comment in photo.comments %}
-                        <li>{{ comment.text }} - <em>{{ comment.username }}</em></li>
-                    {% endfor %}
-                </ul>
-                <!-- Add Comment Form -->
-                <form action="/add_comment" method="post">
-                    <input type="hidden" name="photo_id" value="{{ photo.id }}">
-                    <textarea name="comment" rows="2" placeholder="Add a comment" class="form-control" maxlength="500" required></textarea><br>
-                    <button type="submit" class="btn-save-comment">Додати думку</button>
-                </form>
             </div>
         </div>
     {% endfor %}
