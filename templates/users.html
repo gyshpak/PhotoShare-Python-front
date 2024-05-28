@@ -44,23 +44,23 @@
                         <td><img src="{{ user.avatar }}" alt="Avatar" width="50" height="50"></td>
                         <td>{{ user.role }}</td>
                         <td>
-                            <form action="/role" method="post">
+                            <form action="/role" method="post" class="form-block">
                                 <input type="hidden" name="user_id" value="{{ user.id }}">
                                 <select name="role">
                                     <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
                                     <option value="moderator" {% if user.role == 'moderator' %}selected{% endif %}>Moderator</option>
                                     <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
                                 </select>
-                                <button type="submit">Save</button>
+                                <button type="submit" class="btn-save">Save</button>
                             </form>
                             <!-- Форма для блокування користувача -->
-                            <form action="/ban" method="post">
+                            <form action="/ban" method="post" class="form-block">
                                 <input type="hidden" name="user_id" value="{{ user.id }}">
                                 <select name="isbanned">
                                     <option value="bunned" selected>bunned</option>
                                     <option value="unbanned" selected>unbanned</option>
                                 </select>
-                                <button type="submit">Block</button>
+                                <button type="submit" class="btn-block">Block</button>
                             </form>
                         </td>
                     </tr>

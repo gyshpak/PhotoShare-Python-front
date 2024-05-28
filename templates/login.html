@@ -6,11 +6,11 @@
     <h1>Login</h1>
 
     {% if error_message %}
-    <p style="color: red;">{{ error_message }}</p>
+    <p class="error-message">{{ error_message }}</p>
     {% endif %}
 
     {% if message %}
-    <p style="color: green;">{{ message }}</p>
+    <p class="success-message">{{ message }}</p>
     {% endif %}
 
     <form action="/login" method="post" class="form-login">
@@ -19,7 +19,7 @@
         <label for="password">Password:</label>
         <div class="password-wrapper">
             <input type="password" id="password" name="password" class="form-control" maxlength="50" minlength="5" required>
-            <span class="toggle-password" id="toggle-password" onclick="togglePasswordVisibility()">👁️</button>
+            <span class="toggle-password" id="toggle-password" onclick="togglePasswordVisibilityLogin()">👁️</button>
         </div><br><br>
         <button type="submit">Login</button>
     </form>

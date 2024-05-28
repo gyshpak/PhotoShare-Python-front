@@ -8,10 +8,10 @@
 
     <!-- Display Single User -->
     {% if user %}
-        <div style="display: flex; align-items: center;">
+        <div class="user-details">
             <!-- Avatar -->
-            <div style="margin-right: 60px;">
-                <img src="{{ user.avatar }}" alt="Avatar" class="profile-photo">
+            <div class="avatar-container">
+                <img src="{{ user.avatar }}" alt="Avatar" class="photo-profile">
             </div>
 
             <!-- User Details -->
@@ -53,12 +53,12 @@
         </div>
 
         <!-- Buttons -->
-        <div style="margin-top: 20px;">
+        <div class="buttons">
             <a href="/edit_user"><button>Edit User</button></a>
             <!-- <a href="/my_photos"><button>My Photos</button></a> -->
             <a href="/upload_photo"><button>Upload Photo</button></a>
             <a href="/update_avatar"><button>Update Avatar</button></a>
-            <a href="/logout"><button>Unnigilaciya</button></a>
+            <a href="/logout"><button class="btn-block">Unnigilaciya</button></a>
         </div>
 
     {% else %}
