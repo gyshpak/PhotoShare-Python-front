@@ -9,7 +9,9 @@
 <!-- Photo Upload Form -->
 <form id="updateAvaForm" action="/update_avatar" method="post" enctype="multipart/form-data">
     <label for="photo">Оберіть диво:</label><br>
-    <input type="file" id="photo" name="photo" accept="image/*" required><br><br>
+
+    <input type="file" class="file-upload-input" id="photo" name="photo" accept="image/*" required />
+    <label for="photo" class="file-upload-label">Оберіть диво</label>
 
     <button type="submit">Додати відображення</button>
 </form>

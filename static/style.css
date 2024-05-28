@@ -21,7 +21,6 @@ h1 {
     font-size: 3rem;
     color: #ffffff;
     text-shadow: 0 0 5px #6200ea, 0 0 10px #6200ea, 0 0 15px #6200ea, 0 0 20px #3700b3, 0 0 30px #3700b3;
-    /* text-shadow: 0 0 5px #44B6FF, 0 0 10px #44B6FF, 0 0 15px #44B6FF, 0 0 20px #3700b3, 0 0 30px #3700b3; */
     margin-bottom: 20px;
     animation: glow 1.5s infinite alternate;
 }
@@ -34,16 +33,6 @@ h1 {
         text-shadow: 0 0 20px #6200ea, 0 0 30px #6200ea, 0 0 40px #6200ea, 0 0 50px #3700b3, 0 0 60px #3700b3;
     }
 }
-
-
-/* @keyframes glow {
-    from {
-        text-shadow: 0 0 10px #44B6FF, 0 0 20px #44B6FF, 0 0 30px #44B6FF, 0 0 40px #3700b3, 0 0 50px #3700b3;
-    }
-    to {
-        text-shadow: 0 0 20px #44B6FF, 0 0 30px #44B6FF, 0 0 40px #44B6FF, 0 0 50px #3700b3, 0 0 60px #3700b3;
-    }
-} */
 
 p {
     font-size: 25px;
@@ -77,6 +66,7 @@ select {
     padding: 5px;
     margin: 10px;
     font-family: 'Magical', Arial, sans-serif;
+    width: 100%;
 }
 
 option {
@@ -98,7 +88,6 @@ input {
 
 button {
     background-color: #6200ea;
-    /* background-color: #44B6FF; */
     border: none;
     color: white;
     padding: 15px 30px;
@@ -106,7 +95,6 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    /* margin: 10px 2px; */
     cursor: pointer;
     border-radius: 12px;
     transition: all 0.3s ease;
@@ -138,11 +126,6 @@ button:hover {
     background-color: #3700b3;
     box-shadow: 0 0 10px rgba(98, 0, 234, 0.7), 0 0 20px rgba(98, 0, 234, 0.5), 0 0 30px rgba(98, 0, 234, 0.3);
 }
-/* 
-select:focus-visible {
-    outline-offset: unset;
-} */
-
 
 ::-webkit-scrollbar {
     background-color: #000;
@@ -184,6 +167,7 @@ select:focus-visible {
 .btn-block {
     background-color: #ea0000;
     margin: 10px;
+    width: 100%;
 }
 
 .btn-block:hover {
@@ -194,6 +178,11 @@ select:focus-visible {
 .btn-save {
     background-color: #6200ea;
     margin: 10px;
+    width: 100%;
+}
+
+.btn-save-comment {
+    background-color: #6200ea;
     margin-top: 15px;
 }
 
@@ -214,6 +203,13 @@ select:focus-visible {
 .form-block {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-block-upload {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -241,6 +237,35 @@ select:focus-visible {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+
+.file-upload-input {
+    display: none;
+}
+
+.file-upload-label {
+    background-color: #6200ea;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    font-family: 'Magical', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 15px 0px;
+    @media screen and (max-width: 768px) {
+        width: 287px;
+    }
 }
 
 .hidden {
@@ -320,27 +345,6 @@ select:focus-visible {
         opacity: 0;
     }
 }
-
-/* .star {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0;
-    pointer-events: none;
-    animation: star-animation 1s forwards;
-}
-@keyframes star-animation {
-    0% {
-        opacity: 1;
-        transform: translate(0, 0) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(var(--translate-x), var(--translate-y)) scale(1.5);
-    }
-} */
 
 .success-message {
     color: green;
