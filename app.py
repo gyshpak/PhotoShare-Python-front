@@ -510,7 +510,10 @@ async def get_photo(request: Request, photo_id: str):
             )
             response.raise_for_status()
             photo = response.json()
-        
+
+            created_at_dt = datetime.strptime(photo['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
+            photo["created_at"] = created_at_dt.strftime("%d-%m-%Y %H:%M")
+
             response_QR = await client.get(
                 f"{base_url}/photos/link/{photo['id']}",
                 headers=headers,
