@@ -13,7 +13,6 @@
     <p class="success-message">{{ message }}</p>
     {% endif %}
 
-    <div class="photo-card-wrapper">
         <form action="/login" method="post" class="form-login">
             <label for="name">Совина пошта:</label>
             <input type="text" id="name" name="name" class="form-control" maxlength="50" minlength="3" required><br><br>
@@ -24,5 +23,4 @@
             </div><br><br>
             <button type="submit">Відкрити портал</button>
         </form>
-    </div>
 {% endblock %}
