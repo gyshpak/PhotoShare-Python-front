@@ -10,12 +10,16 @@
     <div class="container">
         <h1>Гільдія чарівників</h1>
         
-        <div class="buttons">
-            <a href="/users" class="magic-button"><button>Досьє магів</button></a>
-            <a href="/login" class="magic-button"><button>Вхід в портал</button></a>
-            <a href="/signup" class="magic-button"><button>Обряд посвячення</button></a>
-            <a href="/user" class="magic-button"><button>Моє чарівне досьє</button></a>
-            <a href="/photos" class="magic-button"><button>Магічна сфера</button></a>
+        <div>
+            <div class="photo-card-wrapper">
+                <div class="buttons">
+                    <a href="/users" class="magic-button"><button>Досьє магів</button></a>
+                    <a href="/login" class="magic-button"><button>Вхід в портал</button></a>
+                    <a href="/signup" class="magic-button"><button>Обряд посвячення</button></a>
+                    <a href="/user" class="magic-button"><button>Моє чарівне досьє</button></a>
+                    <a href="/photos" class="magic-button"><button>Магічна сфера</button></a>
+                </div>
+            </div>
         </div>
         <div>
             {% block content %}{% endblock %}
