@@ -42,7 +42,17 @@
                         <td>{{ user.birthday }}</td>
                         <!-- <td>{{ user.created_at }}</td> -->
                         <td><img src="{{ user.avatar }}" alt="Avatar" width="50" height="50"></td>
-                        <td>{{ user.role }}</td>
+                        <!-- <td>{{ user.role }}</td> -->
+                        <td>
+                            {% if user.role == 'user' %}
+                                Маг 1-го колу
+                            {% elif user.role == 'moderator' %}
+                                Маг 2-го колу
+                            {% elif user.role == 'admin' %}
+                                Маг 3-го колу
+                            {% endif %}
+                        </td>
+                        <td>
                         <td>
                             <form action="/role" method="post" class="form-block">
                                 <input type="hidden" name="user_id" value="{{ user.id }}">

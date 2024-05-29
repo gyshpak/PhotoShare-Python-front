@@ -8,7 +8,6 @@ from fastapi import (
     Request,
     Depends,
     UploadFile,
-    # requests,
     status,
 )
 from fastapi.templating import Jinja2Templates
