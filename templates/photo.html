@@ -6,9 +6,9 @@
 
 <h1>Чарівні дива</h1>
     <h2>Подробиці дива</h2>
-    <div class="photo-card">
+    <div class="photo-card photo-card-details">
         <img src="{{ photo.url }}" alt="Photo" class="photo-image">
-        <img src="data:image/png;base64,{{ photo.QR_code | b64encode }}" alt="QR Code" style="width: 100px; height: auto;">
+        <img src="data:image/png;base64,{{ photo.QR_code | b64encode }}" alt="QR Code" class="photo-card-qr">
         <div class="photo-details">
             <p><strong>Опис закляття:</strong> {{ photo.description }}</p>
             <p><strong>Використані заклінання:</strong> {{ photo.tags }}</p>
