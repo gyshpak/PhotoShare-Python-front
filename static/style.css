@@ -285,6 +285,16 @@ button:hover {
     perspective: 1000px;
 }
 
+.photo-card-details {
+    margin-bottom: 245px;
+}
+
+.photo-card-qr {
+    margin-top: 25px;
+    width: 100px; 
+    height: auto;
+}
+
 .photo-card-two {
     max-width: 600px;
 }
