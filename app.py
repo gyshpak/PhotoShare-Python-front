@@ -621,5 +621,40 @@ async def delete_photo(
                 )
 
 
+@app.post("/trans_photo", response_class=HTMLResponse)
+async def trans_photo(
+    request: Request, photo_id: str = Form(...), transformation: str = Form(...)
+):
+    access_token = request.session.get("access_token")
+    if not access_token:
+        return templates.TemplateResponse("access_denied.html", {"request": request})
+
+    async with httpx.AsyncClient() as client:
+        form_data = {
+            "transformation": transformation,
+        }
+        try:
+            headers = {"Authorization": f"Bearer {access_token}"}
+            response = await client.post(
+                f"{base_url}/photos/transform/{photo_id}",
+                headers=headers,
+                data=form_data,
+            )
+            response.raise_for_status()
+
+            return RedirectResponse(url=f"/photo/{photo_id}", status_code=303)
+
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 403:
+                return templates.TemplateResponse(
+                    "only_admin.html", {"request": request}
+                )
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail=f"Failed to fetch users: {e}",
+                )
+
+
 if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0", port=8001, reload=True, log_level="info")
