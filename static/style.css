@@ -283,6 +283,7 @@ button:hover {
     max-width: 600px;
     transition: transform 0.1s ease;
     perspective: 1000px;
+    height: 100%;
 }
 
 .photo-card-details {
