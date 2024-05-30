@@ -263,10 +263,6 @@ button:hover {
     background-color: #6200ea;
     margin: 10px 0px;
     width: 100%;
-
-    @media screen and (max-width: 768px) {
-        margin: 0px;
-    }
 }
 
 .btn-save-comment {
@@ -276,6 +272,10 @@ button:hover {
     @media screen and (max-width: 768px) {
         width: 100%;
     }
+}
+
+.btn-show-users {
+    margin-top: 15px;
 }
 
 .container {
