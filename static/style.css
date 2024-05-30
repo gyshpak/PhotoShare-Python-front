@@ -41,10 +41,6 @@ h1 {
 
 table {
     width: 100%;
-
-    @media screen and (max-width: 768px) {
-        padding: 15px;
-    }
 }
 
 p {
@@ -125,7 +121,8 @@ input {
     font-family: 'Magical', Arial, sans-serif;
 
     @media screen and (max-width: 768px) {
-        width: 100%;
+        /* width: auto; */
+        width: 95%;
     }
 }
 
@@ -149,7 +146,6 @@ button {
     @media screen and (max-width: 768px) {
         padding: 10px 20px;
         width: 100%;
-        height: 100%;
     }
 }
 
@@ -219,10 +215,6 @@ button:hover {
     @media screen and (max-width: 768px) {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        padding: 15px;
-        /* button {
-            width: 100%;
-        } */
     }
 }
 
@@ -292,8 +284,7 @@ button:hover {
     justify-content: center;
     text-align: center;
     flex-direction: column;
-    width: 100%;
-    
+    padding: 15px;
 }
 
 .error-message {
@@ -328,6 +319,14 @@ button:hover {
     outline: none;
 }
 
+.form-edit-user {
+    @media screen and (max-width: 768px) {
+        input {
+            width: 90%;
+        }
+    }
+}
+
 .form-login, .form-signup {
     display: flex;
     flex-direction: column;
@@ -339,10 +338,6 @@ button:hover {
         border: 1px solid #ccc;
         font-size: 18px;
         font-family: 'Magical', Arial, sans-serif;
-    }
-
-    @media screen and (max-width: 768px) {
-        margin-bottom: 245px;
     }
 }
 
@@ -356,6 +351,12 @@ button:hover {
     }
 }
 
+.form-update-avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 .file-upload-input {
     display: none;
@@ -381,7 +382,7 @@ button:hover {
     width: 80%;
     margin: 15px 0px;
     @media screen and (max-width: 768px) {
-        width: 287px;
+        max-width: 300px;
     }
 }
 
@@ -391,8 +392,13 @@ button:hover {
 
 .password-wrapper {
     position: relative;
-    display: inline-block;
-    width: 100%;
+    display: flex;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        margin-bottom: 20px;
+        width: 100%;
+    }
 }
 
 .photo-card {
@@ -424,6 +430,12 @@ button:hover {
 .photo-card-container {
     display: flex;
     flex-direction: column;
+
+    @media screen and (max-width: 768px) {
+        /* padding: 15px; */
+        margin-bottom: 245px;
+        width: 100%;
+    }
 }
 
 .photo-container {
@@ -437,6 +449,7 @@ button:hover {
 
     @media screen and (max-width: 768px) {
         grid-template-columns: repeat(1, 1fr);
+        padding: 0px;
     }
 }
 
