@@ -47,6 +47,20 @@ class TimeoutMiddleware(BaseHTTPMiddleware):
                 "Timeout.html", {"request": request}
             )
 
+        except StarletteHTTPException as exc:
+            if exc.status_code == status.HTTP_503_SERVICE_UNAVAILABLE:
+                return templates.TemplateResponse(
+                    "Timeout.html", {"request": request}
+                )
+            raise exc  # пробросити далі, якщо це інший код
+
+        # Всі інші необроблені винятки
+        except Exception as e:
+            return templates.TemplateResponse(
+                "500.html", {"request": request, "detail": str(e)}
+            )
+
+
 app.add_middleware(TimeoutMiddleware)
 
 def base64encode(value: bytes) -> str:
@@ -143,11 +157,11 @@ async def login_user(
                     return templates.TemplateResponse(
                         "Unauthorized.html", {"request": request}
                     )
-            else:
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch users: {e}",
-                )
+            # else:
+            #     raise HTTPException(
+            #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #         detail=f"Failed to fetch users: {e}",
+            #     )
 
 # Функція виходу користувача
 @app.get("/logout", response_class=HTMLResponse)
@@ -182,11 +196,11 @@ async def login_user(request: Request):
                 return templates.TemplateResponse(
                     "Unauthorized.html", {"request": request}
                 )
-            else:
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch users: {e}",
-                )
+            # else:
+            #     raise HTTPException(
+            #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #         detail=f"Failed to fetch users: {e}",
+            #     )
 
 # Функція пошуку користувача
 @app.get("/users", response_class=HTMLResponse)
@@ -226,11 +240,11 @@ async def search_users(request: Request, limit: int = 10, offset: int = 0):
                 return templates.TemplateResponse(
                     "only_admin.html", {"request": request}
                 )
-            else:
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch users: {e}",
-                )
+            # else:
+            #     raise HTTPException(
+            #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #         detail=f"Failed to fetch users: {e}",
+            #     )
 
 # Функція перегляду користувача
 @app.get("/user", response_class=HTMLResponse)
@@ -270,11 +284,11 @@ async def search_users(request: Request):
                 return templates.TemplateResponse(
                     "suspicious_activity.html", {"request": request}
                 )
-            else:
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch users: {e}",
-                )
+            # else:
+            #     raise HTTPException(
+            #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #         detail=f"Failed to fetch users: {e}",
+            #     )
 
 # Функція редагування користувача
 @app.get("/edit_user", response_class=HTMLResponse)
@@ -328,11 +342,11 @@ async def search_users(
                 return templates.TemplateResponse(
                     "Unauthorized.html", {"request": request}
                 )
-            else:
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch users: {e}",
-                )
+            # else:
+            #     raise HTTPException(
+            #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #         detail=f"Failed to fetch users: {e}",
+            #     )
 
 # Функція оновлення аватара
 @app.get("/update_avatar", response_class=HTMLResponse)
@@ -487,11 +501,11 @@ async def get_photos(request: Request):
                 return templates.TemplateResponse(
                     "Unauthorized.html", {"request": request}
                 )
-            else:
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch photos: {e}",
-                )
+            # else:
+            #     raise HTTPException(
+            #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #         detail=f"Failed to fetch photos: {e}",
+            #     )
 
 
 @app.get("/photo/{photo_id}", response_class=HTMLResponse)
@@ -531,11 +545,11 @@ async def get_photo(request: Request, photo_id: str):
                 return templates.TemplateResponse(
                     "Unauthorized.html", {"request": request}
                 )
-            else:
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch photos: {e}",
-                )
+            # else:
+            #     raise HTTPException(
+            #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #         detail=f"Failed to fetch photos: {e}",
+            #     )
 
 
 # Функція додавання комментарів
@@ -584,11 +598,11 @@ async def delete_comment(
                 return templates.TemplateResponse(
                     "only_moderator.html", {"request": request}
                 )
-            else:
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch users: {e}",
-                )
+            # else:
+            #     raise HTTPException(
+            #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #         detail=f"Failed to fetch users: {e}",
+            #     )
 
 
 @app.post("/dell_photo", response_class=HTMLResponse)
@@ -614,11 +628,11 @@ async def delete_photo(
                 return templates.TemplateResponse(
                     "only_admin.html", {"request": request}
                 )
-            else:
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch users: {e}",
-                )
+            # else:
+            #     raise HTTPException(
+            #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #         detail=f"Failed to fetch users: {e}",
+            #     )
 
 
 @app.post("/trans_photo", response_class=HTMLResponse)
@@ -649,11 +663,11 @@ async def trans_photo(
                 return templates.TemplateResponse(
                     "only_admin.html", {"request": request}
                 )
-            else:
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to fetch users: {e}",
-                )
+            # else:
+            #     raise HTTPException(
+            #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #         detail=f"Failed to fetch users: {e}",
+            #     )
 
 
 if __name__ == "__main__":
