@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+
+    <h1>Технічні роботи</h1>
+    <p>Триває наповнення маною чарівного кристалу</p>
+
+     {% if detail %}
+        <div class="error-detail" style="margin-top: 20px; color: #777;">
+            <strong>Деталі:</strong> {{ detail }}
+        </div>
+    {% endif %}
+
+{% endblock %}
