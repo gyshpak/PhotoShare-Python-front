@@ -1,16 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Registration{% endblock %}
+{% block title %}Помилка сервера{% endblock %}
 
 {% block content %}
+  <h1>Виникла внутрішня помилка</h1>
+  <p>Наші технічні гноми вже працюють над вирішенням проблеми 🛠️</p>
 
-    <h1>Технічні роботи</h1>
-    <p>Чарівний кристал зломали</p>
-
-     {% if detail %}
-        <div class="error-detail" style="margin-top: 20px; color: #777;">
-            <strong>Слова закляття:</strong> {{ detail }}
-        </div>
-    {% endif %}
-
+  {% if detail %}
+    <div class="error-detail" style="margin-top: 20px; color: #888;">
+      <strong>Деталі для чарівників (розробників):</strong>
+      <pre>{{ detail }}</pre>
+    </div>
+  {% endif %}
 {% endblock %}
