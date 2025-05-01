@@ -50,7 +50,7 @@ class TimeoutMiddleware(BaseHTTPMiddleware):
         except StarletteHTTPException as exc:
             if exc.status_code == status.HTTP_503_SERVICE_UNAVAILABLE:
                 return templates.TemplateResponse(
-                    "Timeout.html", {"request": request}
+                    "Timeout2.html", {"request": request}
                 )
             raise exc  # пробросити далі, якщо це інший код
 
@@ -240,6 +240,8 @@ async def search_users(request: Request, limit: int = 10, offset: int = 0):
                 return templates.TemplateResponse(
                     "only_admin.html", {"request": request}
                 )
+            else:
+                raise # Перекидаєм те саме виключення далі
             # else:
             #     raise HTTPException(
             #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -284,6 +286,8 @@ async def search_users(request: Request):
                 return templates.TemplateResponse(
                     "suspicious_activity.html", {"request": request}
                 )
+            else:
+                raise # Перекидаєм те саме виключення далі
             # else:
             #     raise HTTPException(
             #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -342,6 +346,8 @@ async def search_users(
                 return templates.TemplateResponse(
                     "Unauthorized.html", {"request": request}
                 )
+            else:
+                raise # Перекидаєм те саме виключення далі
             # else:
             #     raise HTTPException(
             #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -501,6 +507,8 @@ async def get_photos(request: Request):
                 return templates.TemplateResponse(
                     "Unauthorized.html", {"request": request}
                 )
+            else:
+                raise # Перекидаєм те саме виключення далі
             # else:
             #     raise HTTPException(
             #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -545,6 +553,8 @@ async def get_photo(request: Request, photo_id: str):
                 return templates.TemplateResponse(
                     "Unauthorized.html", {"request": request}
                 )
+            else:
+                raise # Перекидаєм те саме виключення далі
             # else:
             #     raise HTTPException(
             #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -598,6 +608,8 @@ async def delete_comment(
                 return templates.TemplateResponse(
                     "only_moderator.html", {"request": request}
                 )
+            else:
+                raise # Перекидаєм те саме виключення далі
             # else:
             #     raise HTTPException(
             #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -628,6 +640,8 @@ async def delete_photo(
                 return templates.TemplateResponse(
                     "only_admin.html", {"request": request}
                 )
+            else:
+                raise # Перекидаєм те саме виключення далі
             # else:
             #     raise HTTPException(
             #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -663,6 +677,8 @@ async def trans_photo(
                 return templates.TemplateResponse(
                     "only_admin.html", {"request": request}
                 )
+            else:
+                raise # Перекидаєм те саме виключення далі
             # else:
             #     raise HTTPException(
             #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
