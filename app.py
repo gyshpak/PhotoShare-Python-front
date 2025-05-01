@@ -47,18 +47,23 @@ class TimeoutMiddleware(BaseHTTPMiddleware):
                 "Timeout.html", {"request": request}
             )
 
-        except StarletteHTTPException as exc:
-            if exc.status_code == status.HTTP_503_SERVICE_UNAVAILABLE:
-                return templates.TemplateResponse(
-                    "Timeout2.html", {"request": request}
-                )
+        # except StarletteHTTPException as exc:
+        #     if exc.status_code == status.HTTP_503_SERVICE_UNAVAILABLE:
+        #         return templates.TemplateResponse(
+        #             "Timeout2.html", {"request": request}
+        #         )
             # raise exc  # пробросити далі, якщо це інший код
 
         # Всі інші необроблені винятки
         except Exception as e:
-            return templates.TemplateResponse(
-                "500.html", {"request": request, "detail": str(e)}
-            )
+            if exc.status_code == status.HTTP_503_SERVICE_UNAVAILABLE:
+                return templates.TemplateResponse(
+                    "Timeout2.html", {"request": request}
+                )
+            else:
+                return templates.TemplateResponse(
+                    "500.html", {"request": request, "detail": str(e)}
+                )
 
 
 app.add_middleware(TimeoutMiddleware)
