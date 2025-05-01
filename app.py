@@ -52,7 +52,7 @@ class TimeoutMiddleware(BaseHTTPMiddleware):
                 return templates.TemplateResponse(
                     "Timeout2.html", {"request": request}
                 )
-            raise exc  # пробросити далі, якщо це інший код
+            # raise exc  # пробросити далі, якщо це інший код
 
         # Всі інші необроблені винятки
         except Exception as e:
@@ -157,6 +157,9 @@ async def login_user(
                     return templates.TemplateResponse(
                         "Unauthorized.html", {"request": request}
                     )
+            else:
+                raise # Перекидаєм те саме виключення далі
+                
             # else:
             #     raise HTTPException(
             #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -196,6 +199,9 @@ async def login_user(request: Request):
                 return templates.TemplateResponse(
                     "Unauthorized.html", {"request": request}
                 )
+            else:
+                raise # Перекидаєм те саме виключення далі
+                
             # else:
             #     raise HTTPException(
             #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
