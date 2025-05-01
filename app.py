@@ -55,14 +55,14 @@ class TimeoutMiddleware(BaseHTTPMiddleware):
             # raise exc  # пробросити далі, якщо це інший код
 
         # Всі інші необроблені винятки
-        except Exception as e:
+        except Exception as exc:
             if exc.status_code == status.HTTP_503_SERVICE_UNAVAILABLE:
                 return templates.TemplateResponse(
                     "Timeout2.html", {"request": request}
                 )
             else:
                 return templates.TemplateResponse(
-                    "500.html", {"request": request, "detail": str(e)}
+                    "500.html", {"request": request, "detail": str(exc)}
                 )
 
 
